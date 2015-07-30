@@ -96,7 +96,7 @@
 <h4 id="从事件传递上看：">从事件传递上看：</h4><p>方法一取消事件冒泡，即当某些节点取消冒泡后，事件不会再传递；<br>方法二不阻止冒泡，过滤需要处理的事件，事件处理后还会继续传递；</p>
 </li>
 </ul>
-<h4 id="缺点分析：">缺点分析：</h4><p><strong>方法一缺点</strong>：为了实现点击特定的元素显示对应的信息，要求每个元素的子元素也必须终止事件的冒泡传递，即跟别的元素功能上强关联，这样的方法会很脆弱。比如，如果span元素的处理函数没有执行冒泡终止，则事件会传到child上，这样会造成child的提示信息；<br><strong>方法二缺点</strong>：方法二为每一个元素都增加了事件监听处理函数，事件的处理逻辑都很相似，即都有判断 if(event.target == event.currentTarget)，这样存在了很大的代码冗余，现在是三个元素还好，当有元素多了又该怎么办呢？增加逻辑和代码的复杂度。<br>既然两种方法都存在缺点，那么我们该如何解决这个问题呢？那么就要用到javascript的 <strong>事件委托</strong> 和 <strong>事件代理</strong> 了！</p>
+<h4 id="缺点分析：">缺点分析：</h4><p><strong>方法一缺点</strong>：为了实现点击特定的元素显示对应的信息，要求每个元素的子元素也必须终止事件的冒泡传递，即跟别的元素功能上强关联，这样的方法会很脆弱。比如，如果span元素的处理函数没有执行冒泡终止，则事件会传到child上，这样会造成child的提示信息；<br><strong>方法二缺点</strong>：方法二为每一个元素都增加了事件监听处理函数，事件的处理逻辑都很相似，即都有判断 if(event.target == event.currentTarget)，这样存在了很大的代码冗余，现在是三个元素还好，当有元素多了又该怎么办呢？增加逻辑和代码的复杂度。<br>既然两种方法都存在缺点，那么我们该如何解决这个问题呢？那么就要用到javascript的 <a href="http://yangyuji.github.io/2015/07/29/javascript-delegation/"><strong>事件代理</strong></a> 了！</p>
 <h2 id="事件捕获(event_capturing)">事件捕获(event capturing)</h2><p>刚刚我们理解了事件冒泡，事件冒泡是一个从底层向上层元素冒泡的过程。<strong>事件捕获</strong>刚好相反，是从上层到底层元素传递的过程。 我们再来看一段代码：<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">        <span class="built_in">document</span>.getElementById(<span class="string">"parent"</span>).addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;  </span><br><span class="line">            alert(<span class="string">"您好，我是parent"</span>);  </span><br><span class="line">        &#125;, <span class="literal">true</span>);  </span><br><span class="line">		<span class="built_in">document</span>.getElementById(<span class="string">"child"</span>).addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;  </span><br><span class="line">            alert(<span class="string">"您好，我是child"</span>);  </span><br><span class="line">        &#125;, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"parent"</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"child"</span>&gt;</span>child<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>事件捕获现象：点击child，会先后出现“您好，我是parent”和“您好，我是child”两个弹出框。<br>事件捕获解析：当点击child时，先触发了它的父元素parent的点击事件，后触发child的点击事件，出现事件捕获现象。 事件捕获机制的示意图如下所示：<br><img src="http://yangyuji.github.io/img/event-capturing.png" alt="事件捕获机制"></p>
@@ -213,6 +213,10 @@
   <ul class="entry">
     
       <li>
+        <a href="/2015/07/29/javascript-delegation/">Javascript事件代理</a>
+      </li>
+    
+      <li>
         <a href="/2015/07/27/javascript-event-use/">Javascript事件冒泡和捕获的应用</a>
       </li>
     
@@ -233,7 +237,7 @@
   <h3 class="title">分类</h3>
   <ul class="entry">
   
-    <li><a href="/categories/Javascript/">Javascript</a><small>2</small></li>
+    <li><a href="/categories/Javascript/">Javascript</a><small>3</small></li>
   
   </ul>
 </div>
@@ -243,7 +247,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Event/" style="font-size: 10px;">Event</a> <a href="/tags/Javascript/" style="font-size: 20px;">Javascript</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/事件冒泡/" style="font-size: 20px;">事件冒泡</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a>
+    <a href="/tags/Event/" style="font-size: 15px;">Event</a> <a href="/tags/Javascript/" style="font-size: 20px;">Javascript</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 15px;">事件冒泡</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a>
   </div>
 </div>
 

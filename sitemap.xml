@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yangyuji.github.io/2015/07/29/javascript-delegation/</loc>
+    <lastmod>2015-07-30T08:42:27.770Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yangyuji.github.io/2015/07/24/javascript-event/</loc>
+    <lastmod>2015-07-30T07:58:00.832Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yangyuji.github.io/about/index.html</loc>
     <lastmod>2015-07-30T06:15:11.456Z</lastmod>
   </url>
@@ -9,11 +19,6 @@
   <url>
     <loc>http://yangyuji.github.io/2015/07/27/javascript-event-use/</loc>
     <lastmod>2015-07-29T09:10:46.744Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://yangyuji.github.io/2015/07/24/javascript-event/</loc>
-    <lastmod>2015-07-29T03:43:46.711Z</lastmod>
   </url>
   
   <url>
