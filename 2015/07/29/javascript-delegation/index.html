@@ -62,7 +62,7 @@
     </header>
     <div class="entry">
       
-        <h2 id="Javascript事件代理">Javascript事件代理</h2><p>在实际的开发工作中，我们经常需要对很多元素添加事件，例如对表格的行添加点击事件，对ul的li元素添加点击事件等等，前面我们学习了javascript的事件冒泡机制，那么我们就可以通过将事件添加到它们的父节点而将事件委托给父节点来触发处理函数。下面我们具体举个例子来解释如何使用这个特性：</p>
+        <h2 id="事件代理">事件代理</h2><p>在实际的开发工作中，我们经常需要对很多元素添加事件，例如对表格的行添加点击事件，对ul的li元素添加点击事件等等，前面我们学习了javascript的事件冒泡机制，那么我们就可以通过将事件添加到它们的父节点而将事件委托给父节点来触发处理函数。下面我们具体举个例子来解释如何使用这个特性：</p>
 <a id="more"></a>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"parent-list"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-1"</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-2"</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-3"</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-4"</span>&gt;</span>Item 4<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-5"</span>&gt;</span>Item 5<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-6"</span>&gt;</span>Item 6<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>要给每个li添加一个点击事件，我们通常的写法，是为每个li添加一个onClick的处理函数。更简单的方法是使用事件冒泡机制，当事件冒泡到更上层的父节点的时候，我们通过判断Event对象的目标对象（target）来判断并获取事件源li。下面的代码可以完成我们想要的效果：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="comment">//获取父节点，并为它添加一个click事件</span></span><br><span class="line">	<span class="built_in">document</span>.getElementById(<span class="string">"parent-list"</span>).addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		<span class="comment">//检查事件源e.targe是否为li</span></span><br><span class="line">		<span class="keyword">if</span>(e.target &amp;&amp; e.target.nodeName.toUpperCase() == <span class="string">"LI"</span>) &#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"List item "</span> + e.target.id + <span class="string">" was clicked!"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		e.stopPropagation(); <span class="comment">//阻止事件继续冒泡</span></span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -74,7 +74,11 @@
 <p><strong>使用中应该注意的问题：</strong><br>1、事件管理代码有成为性能瓶颈的风险，所以尽量使它能够短小精悍；<br>2、不是所有的事件都能冒泡的。blur、focus、load和unload不能像其它事件一样冒泡。事实上blur和focus可以用事件捕获而非事件冒泡的方法获得（在IE之外的其它浏览器中）；<br>3、在管理鼠标事件的时候有些需要注意，如果处理mousemove这样的事件的话遇上性能瓶颈的风险就很大，因为mousemove事件触发非常频繁，而且mouseout则因为其怪异的表现而变得很难用事件代理来管理。</p>
 <h2 id="jquery的事件代理：">jquery的事件代理：</h2><p>现有的主流javascript库的事件代理已经实现了，例如jquery的事件代理方式实现上述功能：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    $(<span class="string">"#parent-list"</span>).delegate(<span class="string">"li"</span>, <span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"you clicked item!"</span>, $(<span class="keyword">this</span>));</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>点击”Item 1”，输出以下信息：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">you clicked item! [li<span class="comment">#post-1, context: li#post-1]</span></span><br></pre></td></tr></table></figure>
+<li><p>点击”Item 1”，输出以下信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">you clicked item! [li<span class="comment">#post-1, context: li#post-1]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>另一种写法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">	$(<span class="string">'#parent-list'</span>).click($.delegate(&#123;</span><br><span class="line">	  <span class="string">'.quit'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">"do quit stuff"</span>); &#125;,</span><br><span class="line">	  <span class="string">'.edit'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">"do edit stuff"</span>); &#125;</span><br><span class="line">	&#125;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>感谢您的阅读，有不足之处请在评论为我指出！</p>
@@ -138,7 +142,7 @@
 </style>
 <div class="prev_next clearfix">
   
-    <a href="javascript:;" class="prev alignleft disabled" title="没有上一篇了">已经是第一篇了</a>
+  <a href="/2015/08/02/javascript-scope/" class="prev alignleft" title="�����δ���ǳ̸javascript������">上一篇<span class="xs-hidden">：�����δ���ǳ̸javascript������</span></a>
   
   
   <a href="/2015/07/27/javascript-event-use/" class="next alignright" title="Javascript事件冒泡和捕获的应用">下一篇<span class="xs-hidden">：Javascript事件冒泡和捕获的应用</span></a>
@@ -189,6 +193,14 @@
   <ul class="entry">
     
       <li>
+        <a href="/2015/08/05/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2015/08/02/javascript-scope/">�����δ���ǳ̸javascript������</a>
+      </li>
+    
+      <li>
         <a href="/2015/07/29/javascript-delegation/">Javascript事件代理</a>
       </li>
     
@@ -200,10 +212,6 @@
         <a href="/2015/07/24/javascript-event/">Javascript事件冒泡和事件捕获</a>
       </li>
     
-      <li>
-        <a href="/2015/07/22/hello-world/">Hello World</a>
-      </li>
-    
   </ul>
 </div>
 
@@ -213,7 +221,7 @@
   <h3 class="title">分类</h3>
   <ul class="entry">
   
-    <li><a href="/categories/Javascript/">Javascript</a><small>3</small></li>
+    <li><a href="/categories/Javascript/">Javascript</a><small>4</small></li>
   
   </ul>
 </div>
@@ -223,7 +231,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Event/" style="font-size: 15px;">Event</a> <a href="/tags/Javascript/" style="font-size: 20px;">Javascript</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 15px;">事件冒泡</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a>
+    <a href="/tags/Event/" style="font-size: 15px;">Event</a> <a href="/tags/Javascript/" style="font-size: 20px;">Javascript</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/javascript������/" style="font-size: 10px;">javascript������</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 15px;">事件冒泡</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a>
   </div>
 </div>
 
