@@ -63,31 +63,15 @@
     </header>
     <div class="entry">
       
-        <p>废话少说，先上第一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tt = <span class="string">'aa'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(tt);</span><br><span class="line">	<span class="keyword">var</span> tt = <span class="string">'dd'</span>;</span><br><span class="line">	alert(tt);</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line"><span class="xml"><span class="comment">&lt;!--more--&gt;</span></span></span><br></pre></td></tr></table></figure></p>
-<p>然后大家继续看一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bb = <span class="string">"bb"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mytest</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(bb);</span><br><span class="line">&#125;	</span><br><span class="line">mytest();</span><br></pre></td></tr></table></figure></p>
-<p>大家可以说下第一段代码的答案！反正我看完题目的的第一感觉是“太简单了！”，于是乎我答错了。<br><strong>正确的答案应该是：undefined和dd*</strong></p>
-<h2 id="为什么呢？">为什么呢？</h2><p>为什么第一次alert的结果是undefined呢？要解释得清楚明白需要用到Javascript的作用域和作用域链。<br>Javascript中的函数“<strong>在定义它们的作用域里运行，而不是在执行它们的作用域里运行</strong>”，这是权威指南里抽象而精辟的总结。</p>
-<p>Javascript的逻辑默认在一个全局作用域中执行，上面代码中的“var tt=’aa’;”就是定义一个全局作用域的全局变量（如果以上代码段不是在某个函数内部的话）。而test()函数内部的逻辑必须在原有的作用域（全局作用域）链再添加test函数本身的作用域（局部性），然而Javascript作用域链的特别之处在于函数内部能够嵌套函数的定义。注：在js中函数是唯一形式的代码作用域。</p>
-<p>嵌套的内部函数可以调用其父函数的变量和其他兄弟函数（函数也可以理解成一种数据）。如果父函数被调用，当父函数执行完毕后所有数据（包括父函数和其嵌套的内部函数）都将被垃圾回收机制收集——这可以理解是js的垃圾回收机制。</p>
-<p>有一种情况，经常用来举例做闭包讲解的代码，就是Javascript允许外部调用父函数嵌套的内部函数，即使被嵌套函数已经被‘垃圾收集’—-<br>最常见的就是在‘某个函数’中用其嵌套的内部函数定义某些元素的响应事件，页面载入的时候被嵌套函数（‘某个函数’）已经执行完毕（被垃圾回收），但当事件触发的时候仍然会有响应的动作，而且响应函数中还可能调用到在被嵌套函数（‘某个函数’）中定义的变量最终值（不是被垃圾回收了吗？）。ok，关于闭包的打住，我们这里的重点是：<br><strong>调用对象位于作用域链的前端，局部变量、函数参数及Arguments对象都在函数内的作用域中——这意味着它们隐藏了作用域链更上层的任何同名的属性。</strong></p>
-<p>关于第一段代码其实也可以这样写：</p>
-<pre><code class="javascript"><span class="keyword">var</span> tt = <span class="string">'aa'</span>;
-<span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>{
-    <span class="keyword">var</span> tt;
-    alert(tt);
-    tt = <span class="string">'dd'</span>;
-    alert(tt);
-}
-test();
-</code></pre>
-<p>也许这样写就比较容易得到正确的答案了。因为javascript可以<strong>先使用后定义</strong>，即不用在调用之前作任何声明，所以才有了第一段代码的意想不到。</p>
-<p>重申一下本文的重点：</p>
-<p><strong>1、函数在定义它们的作用域里运行，而不是在执行它们的作用域里运行。</strong><br><strong>2、调用对象位于作用域链的前端，局部变量、函数的参数及Arguments对象都在函数内的作用域中——这意味着它们隐藏了作用域链更上层的任何同名的对象。</strong></p>
-
+        <p>废话少说，先上第一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tt = <span class="string">'aa'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(tt);</span><br><span class="line">	<span class="keyword">var</span> tt = <span class="string">'dd'</span>;</span><br><span class="line">	alert(tt);</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure></p>
       
     </div>
     <footer>
       
+        
+          <div class="alignleft">
+            <a href="/2015/08/02/javascript-scope/#more" class="more-link">阅读全文</a>
+          </div>
         
         
       
