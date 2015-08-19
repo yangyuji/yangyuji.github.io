@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>JavaScript高质量代码之类型转换 | yangyuji</title>
+  <title>JavaScript高质量代码之function表达式和function语句 | yangyuji</title>
   <meta name="author" content="yangyuji">
   
   <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="JavaScript高质量代码之类型转换"/>
+  <meta property="og:title" content="JavaScript高质量代码之function表达式和function语句"/>
   <meta property="og:site_name" content="yangyuji"/>
 
   
@@ -52,24 +52,25 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-08-09T02:13:45.000Z"><a href="/2015/08/09/javascript-super/">2015-08-09</a></time>
+        <time datetime="2015-08-19T12:02:53.000Z"><a href="/2015/08/19/javascript-function/">2015-08-19</a></time>
       
       
   
-    <h1 class="title">JavaScript高质量代码之类型转换</h1>
+    <h1 class="title">JavaScript高质量代码之function表达式和function语句</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>本文保存一些JavaScript代码的高质量写法，以便查阅和进步。</p>
-<h3 id="使用!!和+进行类型判断和转换">使用!!和+进行类型判断和转换</h3><p>javascript是一门弱类型的语言，通常我们在编写javascript代码时往往会用到许多类型转换的东西，对于string，number，boolean等基础类型，==和===是有区别的，对于array，function，object等引用类型，==和===是没有区别的，可以通过javascript的类型转换技巧来实现判断。</p>
-<a id="more"></a>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isNumber</span>(<span class="params">a</span>)</span>&#123; </span><br><span class="line">	<span class="keyword">return</span> a === +a;   <span class="comment">//判断是否为数字类型</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"100"</span>, num = <span class="number">100</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str === num);   <span class="comment">//false，类型不同</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// +可以把字符串强制转化为number型 </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(+str));   <span class="comment">//number</span></span><br><span class="line"><span class="built_in">console</span>.log((+str) === num); <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// !!可以将任一个对象转化为boolean型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(!!str)); <span class="comment">//boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(!!<span class="number">0</span>);           <span class="comment">//false，数字类型的0，boolean之后为false</span></span><br><span class="line"><span class="built_in">console</span>.log(!!<span class="string">"0"</span>);         <span class="comment">//true，字符串0，boolean之后为true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//那么综合进阶可以判断是否为数字类型的0，或者字符串类型的0</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isZero</span>(<span class="params">a</span>)</span>&#123; </span><br><span class="line">	<span class="keyword">return</span> !!(+a) === <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(isZero(<span class="string">"0"</span>));   <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(isZero(<span class="number">0</span>));     <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<p>既然+可以转换成number，那么和全局函数parseInt，parseFloat，Number有什么区别呢？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"100s"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(+str);     <span class="comment">//NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>(str));   <span class="comment">//NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(str));   <span class="comment">//100</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(str));   <span class="comment">//100</span></span><br></pre></td></tr></table></figure></p>
+        <p>本文保存一些常用JavaScript代码的高质量写法，以便查阅和进步。</p>
+<p>首先我们看下什么是function表达式和function语句：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;&#125;       <span class="comment">//function语句</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">//function表达式</span></span><br></pre></td></tr></table></figure></p>
+<p>javascript语言中的function语句在解析时会发生被预先加载的情况。这意味着不管function被放置在哪里，它都会被移动到被定义时所在的作用域顶层，造成了javascript函数不必先声明后使用的特性，但这种特性也导致了javascript的混乱。下面看两段代码：<br><a id="more"></a></p>
+<p>JavaScript高质量代码之</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//10</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	a=<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">a1();</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//4</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	a=<span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line">a1();</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//4</span></span><br></pre></td></tr></table></figure>
+<p>继续看一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//10</span></span><br><span class="line"><span class="keyword">var</span> a1=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	a=<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">a1();</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a1=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	a=<span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line">a1();</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//4</span></span><br></pre></td></tr></table></figure></p>
+<p>推荐使用第二种形式，因为它能明确表示f是一个包含一个函数值的变量。要用好JavaScript这门语言，理解函数就是数值是很重要的。</p>
 <p>感谢您的阅读，有不足之处请在评论为我指出。</p>
-<h2 id="参考资料">参考资料</h2><p>[1]：<a href="http://www.css88.com/doc/underscore/" target="_blank" rel="external">underscore.js中文文档</a></p>
-<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/08/09/javascript-super/">http://yangyuji.github.io/2015/08/09/javascript-super/</a></p>
+<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/08/19/javascript-function/">http://yangyuji.github.io/2015/08/19/javascript-function/</a></p>
 
       
     </div>
@@ -84,7 +85,7 @@
         
   
   <div class="tags">
-    <a href="/tags/javascript/">javascript</a>, <a href="/tags/类型转换/">类型转换</a>, <a href="/tags/高质量代码/">高质量代码</a>
+    <a href="/tags/function/">function</a>, <a href="/tags/javascript/">javascript</a>
   </div>
 
         
@@ -129,17 +130,17 @@
 </style>
 <div class="prev_next clearfix">
   
-  <a href="/2015/08/19/javascript-normal/" class="prev alignleft" title="JavaScript高质量代码之常用代码优化写法">上一篇<span class="xs-hidden">：JavaScript高质量代码之常用代码优化写法</span></a>
+    <a href="javascript:;" class="prev alignleft disabled" title="没有上一篇了">已经是第一篇了</a>
   
   
-  <a href="/2015/08/09/javascript-this/" class="next alignright" title="JavaScript之this关键字">下一篇<span class="xs-hidden">：JavaScript之this关键字</span></a>
+  <a href="/2015/08/19/javascript-normal/" class="next alignright" title="JavaScript高质量代码之常用代码优化写法">下一篇<span class="xs-hidden">：JavaScript高质量代码之常用代码优化写法</span></a>
   
 </div>
 
 
 <section id="comments">
     <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="2015/08/09/javascript-super/" data-title="JavaScript高质量代码之类型转换" data-url="http://yangyuji.github.io/2015/08/09/javascript-super/"></div>
+	<div class="ds-thread" data-thread-key="2015/08/19/javascript-function/" data-title="JavaScript高质量代码之function表达式和function语句" data-url="http://yangyuji.github.io/2015/08/19/javascript-function/"></div>
 	<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
