@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>关于 | yangyuji</title>
+  <title>JavaScript之常用代码（持续更新） | yangyuji</title>
   <meta name="author" content="yangyuji">
   
   <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="关于"/>
+  <meta property="og:title" content="JavaScript之常用代码（持续更新）"/>
   <meta property="og:site_name" content="yangyuji"/>
 
   
@@ -46,52 +46,47 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="page">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
       
+        <div class="icon"></div>
+        <time datetime="2015-08-19T11:46:32.000Z"><a href="/2015/08/19/javascript-normal/">2015-08-19</a></time>
+      
       
   
-    <h1 class="title">关于</h1>
+    <h1 class="title">JavaScript之常用代码（持续更新）</h1>
   
 
     </header>
     <div class="entry">
       
-        <h1 id="欧吉增">欧吉增</h1><h2 id="软件开发_&amp;_前端开发">软件开发 &amp; 前端开发</h2><p><a href="http://yangyuji.github.io">github.io</a><br><a href="mailto:394712273@qq.com" target="_blank" rel="external">394712273@qq.com</a></p>
-<hr>
-<h3 id="技术">技术</h3><ol>
-<li>Linux / Shell</li>
-<li>Php / thinkPHP</li>
-<li>Python</li>
-<li>JavaScript / jquery / highcharts / nodejs / angularjs / seajs</li>
-<li>html/css / Bootstrap</li>
-<li>MySQL</li>
-<li>Git</li>
-<li>C# / .NET</li>
-<li>Mssql 2005</li>
-</ol>
-<hr>
-<h3 id="经历">经历</h3><p><strong>佛山阿普思通讯技术有限公司</strong> <em>WebGIS 开发工程师</em>  <strong>2009.4 ~ 2011.4</strong><br>    开发公司的WebGIS系统，采用 Ajax，Google Map，Baidu Map，Extjs等技术，实现车辆实时定位，轨迹播放，轨迹查询，告警设置等功能。<br>    车辆定位数据到省车管所的对接，使用c++平台，根据各个省厅对接协议完成轨迹数据的对接中间件。</p>
-<p><strong>广东睿江科技有限公司</strong> <em>web前端工程师</em>  <strong>2011.5 ~ 现在</strong><br>    负责公司研发产品的web前端开发，主要包括CDN产品，DNS产品，网络评析产品等。<br>    带领前端开发团队按时按质完成各个项目的开发。<br>    搭建公司web前端框架，该框架使用sea.js、angularjs和bootstrap等前端技术，从而使得公司的web前端开发有了一个技术上的框架。<br>    <strong>技术环境</strong>：CentOS、Apache、javascript</p>
-<p><strong>yangyuji.github.io</strong> <em>创始人及主编</em> <strong>2015.6 ~ 现在</strong><br>    设计网站架构，负责博客网站内容的编写，用 github + hexo 搭建。<br>    持续不断的内容创作，如《<a href="http://yangyuji.github.io/2015/07/24/javascript-event/">Javascript事件冒泡和事件捕获</a>》。<br>    <strong>技术环境</strong>：hexo、nodejs、Git</p>
-<hr>
-<h3 id="教育">教育</h3><p><strong>信息管理与信息系统</strong> <strong>2005 ~ 2009</strong><br>    山东理工大学</p>
-<hr>
-<h3 id="兴趣">兴趣</h3><ul>
-<li><p><strong>生活</strong><br>  电影、摄影、运动、健身、家庭</p>
-</li>
-<li><p><strong>编程</strong><br>  JavaScript、前端开发、前端架构、移动开发</p>
-</li>
-</ul>
+        <p>本文保存一些常用JavaScript代码的高质量写法，以便查阅和进步。</p>
+<h3 id="[1]-_使用“[_]“方括号访问属性">[1]. 使用“[ ]“方括号访问属性</h3><p>如果使用”.”号，属性名是硬代码，不能在执行时改变。如果使用”[ ]“方括号，属性名是一个通过计算属性名而来的字符串。 如果你有 “value1″, “value2″, 和 “value3″这样的属性，你可以通过定义一个变量 i=1 来动态访问你需要的属性：</p>
+<a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; <span class="number">100</span>; i++)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(data[<span class="string">"value"</span>+i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="[2]-_历遍元素时，赋值长度为初始值：">[2]. 历遍元素时，赋值长度为初始值：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// not good</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; data.length; i++)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(data[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = data.length; i &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(data[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="[3]-_在某个函数内多次访问全局变量，使用局部变量缓存变化的值或者全局变量">[3]. 在某个函数内多次访问全局变量，使用局部变量缓存变化的值或者全局变量</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// not good</span></span><br><span class="line"><span class="keyword">var</span> query = <span class="built_in">window</span>.location.href.substring(<span class="built_in">window</span>.location.href.indexOf(<span class="string">"?"</span>)); </span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line"><span class="keyword">var</span> url = <span class="built_in">window</span>.location.href;</span><br><span class="line"><span class="keyword">var</span> query = url.substring(url.indexOf(<span class="string">"?"</span>));</span><br></pre></td></tr></table></figure>
+<p>感谢您的阅读，有不足之处请在评论为我指出。</p>
+<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/08/19/javascript-normal/">http://yangyuji.github.io/2015/08/19/javascript-normal/</a></p>
 
       
     </div>
     <footer>
       
         
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
         
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>, <a href="/tags/代码备忘/">代码备忘</a>
+  </div>
+
         
       
       <div class="clearfix"></div>
@@ -101,9 +96,50 @@
 
 
 
+<style>
+.prev_next {
+  margin-bottom: 1em;
+  clear: both;
+  background: transparent;
+  overflow: hidden;
+}
+.prev_next a {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5em 1em;
+  background: #fff;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
+  color: #1ba1e2;
+}
+.prev_next a.prev {
+  float: left;
+}
+.prev_next a.next {
+  float: right;
+}
+.prev_next a.disabled {
+  cursor: not-allowed;
+  color: #999;
+}
+.prev_next a.disabled:hover {
+  text-decoration: none;
+}
+</style>
+<div class="prev_next clearfix">
+  
+    <a href="javascript:;" class="prev alignleft disabled" title="没有上一篇了">已经是第一篇了</a>
+  
+  
+  <a href="/2015/08/09/javascript-super/" class="next alignright" title="JavaScript之常用代码的高质量写法（持续更新）">下一篇<span class="xs-hidden">：JavaScript之常用代码的高质量写法（持续更新）</span></a>
+  
+</div>
+
+
 <section id="comments">
     <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="about/index.html" data-title="关于" data-url="http://yangyuji.github.io/about/index.html"></div>
+	<div class="ds-thread" data-thread-key="2015/08/19/javascript-normal/" data-title="JavaScript之常用代码（持续更新）" data-url="http://yangyuji.github.io/2015/08/19/javascript-normal/"></div>
 	<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
