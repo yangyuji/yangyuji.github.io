@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yangyuji.github.io/about/index.html</loc>
+    <lastmod>2015-08-22T04:16:46.972Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yangyuji.github.io/2015/08/20/xmlhttprequest-2.0/</loc>
     <lastmod>2015-08-22T04:12:39.640Z</lastmod>
   </url>
@@ -49,11 +54,6 @@
   <url>
     <loc>http://yangyuji.github.io/2015/07/24/javascript-event/</loc>
     <lastmod>2015-07-30T07:58:00.832Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://yangyuji.github.io/about/index.html</loc>
-    <lastmod>2015-07-30T06:15:11.456Z</lastmod>
   </url>
   
   <url>
