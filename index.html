@@ -53,6 +53,44 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-08-21T07:31:44.000Z"><a href="/2015/08/21/javascript-redraw/">2015-08-21</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/08/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="什么是重排和重绘">什么是重排和重绘</h1><hr>
+<p>浏览器下载完页面中的所有组件——HTML标记、JavaScript、CSS、图片之后会解析生成两个内部数据结构——DOM树和渲染树。</p>
+<p>DOM树表示页面结构，渲染树表示DOM节点如何显示。DOM树中的每一个需要显示的节点在渲染树种至少存在一个对应的节点（隐藏的DOM元素disply值为none 在渲染树中没有对应的节点）。渲染树中的节点被称为“帧”或“盒”，符合CSS模型的定义，理解页面元素为一个具有填充，边距，边框和位置的盒子。一旦DOM和渲染树构建完成，浏览器就开始显示（绘制）页面元素。<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/08/21/javascript-redraw/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-08-19T12:02:53.000Z"><a href="/2015/08/19/javascript-function/">2015-08-19</a></time>
       
       
@@ -128,6 +166,42 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-08-19T07:58:43.000Z"><a href="/2015/08/19/xmlhttprequest-2.0/">2015-08-19</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/08/19/xmlhttprequest-2.0/">XMLHttpRequest 2.0</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>在十几年前，一个称为Ajax的东西对前端行业造成了深远影响，不仅是javascript语言，而包括前端地位、职位兴起以及工作分工等。抛开IE早期的浏览器不谈，其他浏览器的Ajax实际上都是借助XMLHttpRequest实现的。<br>在XMLHttpRequest 1.0时代（暂时这么叫吧），XMLHttpRequest配套着DOMString和Document数据类型，所向披靡，无处不在。<br>关于<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/DOMString">DOMString</a>和<a href="https://developer.mozilla.org/en-US/docs/Web/API/document">Document</a>数据类型请猛戳。<br>DOMString和Document都是XMLHttpRequest 1.0时代的数据类型，元老级。我们这里主要谈一下XMLHttpRequest 2.0新增的！<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/08/19/xmlhttprequest-2.0/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-08-09T02:13:45.000Z"><a href="/2015/08/09/javascript-super/">2015-08-09</a></time>
       
       
@@ -147,79 +221,6 @@
         
           <div class="alignleft">
             <a href="/2015/08/09/javascript-super/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-08-08T16:24:52.000Z"><a href="/2015/08/09/javascript-this/">2015-08-09</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/08/09/javascript-this/">JavaScript之this关键字</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>本文简单谈一谈JavaScript里面的this关键字。这个关键字是理解JavaScript面向对象编程的重要基础。</p>
-<p>this表示当前对象，如果在全局作用范围内使用this，则指代当前页面对象window； 如果在函数中使用this，则this指代什么是根据运行时此函数在什么对象上被调用。 还可以使用<strong>apply</strong>和<strong>call</strong>两个全局方法来改变函数中this的具体指向。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/08/09/javascript-this/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-08-02T02:08:52.000Z"><a href="/2015/08/02/javascript-scope/">2015-08-02</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/08/02/javascript-scope/">由两段代码浅谈javascript作用域</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>废话少说，先上第一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tt = <span class="string">'aa'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(tt);</span><br><span class="line">	<span class="keyword">var</span> tt = <span class="string">'dd'</span>;</span><br><span class="line">	alert(tt);</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/08/02/javascript-scope/#more" class="more-link">阅读全文</a>
           </div>
         
         
@@ -263,6 +264,10 @@
   <ul class="entry">
     
       <li>
+        <a href="/2015/08/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a>
+      </li>
+    
+      <li>
         <a href="/2015/08/19/javascript-function/">JavaScript高质量代码之function表达式和function语句</a>
       </li>
     
@@ -271,15 +276,11 @@
       </li>
     
       <li>
+        <a href="/2015/08/19/xmlhttprequest-2.0/">XMLHttpRequest 2.0</a>
+      </li>
+    
+      <li>
         <a href="/2015/08/09/javascript-super/">JavaScript高质量代码之类型转换</a>
-      </li>
-    
-      <li>
-        <a href="/2015/08/09/javascript-this/">JavaScript之this关键字</a>
-      </li>
-    
-      <li>
-        <a href="/2015/08/02/javascript-scope/">由两段代码浅谈javascript作用域</a>
       </li>
     
   </ul>
@@ -293,6 +294,10 @@
   
     <li><a href="/categories/Javascript/">Javascript</a><small>8</small></li>
   
+    <li><a href="/categories/ajax/">ajax</a><small>1</small></li>
+  
+    <li><a href="/categories/javascript/">javascript</a><small>1</small></li>
+  
   </ul>
 </div>
 
@@ -301,7 +306,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Event/" style="font-size: 13.33px;">Event</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 13.33px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
   </div>
 </div>
 

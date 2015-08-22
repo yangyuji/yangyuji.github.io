@@ -53,17 +53,90 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-07-29T08:38:53.000Z"><a href="/2015/07/29/javascript-delegation/">2015-07-29</a></time>
+        <time datetime="2015-08-08T16:24:52.000Z"><a href="/2015/08/09/javascript-this/">2015-08-09</a></time>
       
       
   
-    <h1 class="title"><a href="/2015/07/29/javascript-delegation/">Javascript事件代理</a></h1>
+    <h1 class="title"><a href="/2015/08/09/javascript-this/">JavaScript之this关键字</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h2 id="事件代理">事件代理</h2><p>在实际的开发工作中，我们经常需要对很多元素添加事件，例如对表格的行添加点击事件，对ul的li元素添加点击事件等等，前面我们学习了javascript的事件冒泡机制，那么我们就可以通过将事件添加到它们的父节点而将事件委托给父节点来触发处理函数。下面我们具体举个例子来解释如何使用这个特性：</p>
+        <p>本文简单谈一谈JavaScript里面的this关键字。这个关键字是理解JavaScript面向对象编程的重要基础。</p>
+<p>this表示当前对象，如果在全局作用范围内使用this，则指代当前页面对象window； 如果在函数中使用this，则this指代什么是根据运行时此函数在什么对象上被调用。 还可以使用<strong>apply</strong>和<strong>call</strong>两个全局方法来改变函数中this的具体指向。</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/08/09/javascript-this/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-08-02T02:08:52.000Z"><a href="/2015/08/02/javascript-scope/">2015-08-02</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/08/02/javascript-scope/">由两段代码浅谈javascript作用域</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>废话少说，先上第一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tt = <span class="string">'aa'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(tt);</span><br><span class="line">	<span class="keyword">var</span> tt = <span class="string">'dd'</span>;</span><br><span class="line">	alert(tt);</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure></p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/08/02/javascript-scope/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-07-29T08:38:53.000Z"><a href="/2015/07/29/javascript-delegation/">2015-07-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/07/29/javascript-delegation/">Javascript事件事件委托（事件代理）</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="事件委托（事件代理）">事件委托（事件代理）</h2><p>有了事件冒泡和事件捕获的基础，事件委托应该是比较容易学习了。什么是事件委托？对“事件处理程序过多”问题的解决方案就是事件委托。<br>事件委托利用了事件冒泡，只定义一个事件处理程序，就可以管理某一类型的所有事件。例如，click事件会冒泡到document层次，也就是说，我们可以为整个页面指定一个onclick事件处理程序，而不必给每个可单击的元素分别添加事件处理程序。下面我们具体举个例子来解释如何使用这个特性：</p>
       
     </div>
     <footer>
@@ -168,52 +241,13 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-06-29T03:32:58.000Z"><a href="/2015/06/29/hello-world/">2015-06-29</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/06/29/hello-world/">Hello World</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
     <a href="/" class="alignleft prev">上一页</a>
   
+  
+    <a href="/page/3/" class="alignright next">下一页</a>
   
   <div class="clearfix"></div>
 </nav></div></div>
@@ -240,6 +274,10 @@
   <ul class="entry">
     
       <li>
+        <a href="/2015/08/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a>
+      </li>
+    
+      <li>
         <a href="/2015/08/19/javascript-function/">JavaScript高质量代码之function表达式和function语句</a>
       </li>
     
@@ -248,15 +286,11 @@
       </li>
     
       <li>
+        <a href="/2015/08/19/xmlhttprequest-2.0/">XMLHttpRequest 2.0</a>
+      </li>
+    
+      <li>
         <a href="/2015/08/09/javascript-super/">JavaScript高质量代码之类型转换</a>
-      </li>
-    
-      <li>
-        <a href="/2015/08/09/javascript-this/">JavaScript之this关键字</a>
-      </li>
-    
-      <li>
-        <a href="/2015/08/02/javascript-scope/">由两段代码浅谈javascript作用域</a>
       </li>
     
   </ul>
@@ -270,6 +304,10 @@
   
     <li><a href="/categories/Javascript/">Javascript</a><small>8</small></li>
   
+    <li><a href="/categories/ajax/">ajax</a><small>1</small></li>
+  
+    <li><a href="/categories/javascript/">javascript</a><small>1</small></li>
+  
   </ul>
 </div>
 
@@ -278,7 +316,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Event/" style="font-size: 13.33px;">Event</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 13.33px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
   </div>
 </div>
 
