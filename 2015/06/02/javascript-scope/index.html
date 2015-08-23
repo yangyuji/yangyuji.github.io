@@ -1,0 +1,277 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>由两段代码浅谈javascript作用域 | yangyuji</title>
+  <meta name="author" content="yangyuji">
+  
+  <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="由两段代码浅谈javascript作用域"/>
+  <meta property="og:site_name" content="yangyuji"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="yangyuji" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="/js/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">yangyuji</a></h1>
+  <h2><a href="/">一个屌丝，码农，程序猿</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-06-02T02:08:52.000Z"><a href="/2015/06/02/javascript-scope/">2015-06-02</a></time>
+      
+      
+  
+    <h1 class="title">由两段代码浅谈javascript作用域</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>废话少说，先上第一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tt = <span class="string">'aa'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(tt);</span><br><span class="line">	<span class="keyword">var</span> tt = <span class="string">'dd'</span>;</span><br><span class="line">	alert(tt);</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>大家可以说下第一段代码的答案！反正我看完题目的的第一感觉是“太简单了！”，于是乎我答错了。<br><strong>正确的答案应该是：undefined和dd*</strong></p>
+<h2 id="为什么呢？">为什么呢？</h2><p>为什么第一次alert的结果是undefined呢？要解释得清楚明白需要用到Javascript的作用域和作用域链。<br>Javascript中的函数“<strong>在定义它们的作用域里运行，而不是在执行它们的作用域里运行</strong>”，这是权威指南里抽象而精辟的总结。</p>
+<p>Javascript的逻辑默认在一个全局作用域中执行，上面代码中的“var tt=’aa’;”就是定义一个全局作用域的全局变量（如果以上代码段不是在某个函数内部的话）。而test()函数内部的逻辑必须在原有的作用域（全局作用域）链再添加test函数本身的作用域（局部性），然而Javascript作用域链的特别之处在于函数内部能够嵌套函数的定义。注：在js中函数是唯一形式的代码作用域。</p>
+<p>嵌套的内部函数可以调用其父函数的变量和其他兄弟函数（函数也可以理解成一种数据）。如果父函数被调用，当父函数执行完毕后所有数据（包括父函数和其嵌套的内部函数）都将被垃圾回收机制收集——这可以理解是js的垃圾回收机制。</p>
+<p>有一种情况，经常用来举例做闭包讲解的代码，就是Javascript允许外部调用父函数嵌套的内部函数，即使被嵌套函数已经被‘垃圾收集’—-<br>最常见的就是在‘某个函数’中用其嵌套的内部函数定义某些元素的响应事件，页面载入的时候被嵌套函数（‘某个函数’）已经执行完毕（被垃圾回收），但当事件触发的时候仍然会有响应的动作，而且响应函数中还可能调用到在被嵌套函数（‘某个函数’）中定义的变量最终值（不是被垃圾回收了吗？）。ok，关于闭包的打住，我们这里的重点是：<br><strong>调用对象位于作用域链的前端，局部变量、函数参数及Arguments对象都在函数内的作用域中——这意味着它们隐藏了作用域链更上层的任何同名的属性。</strong></p>
+<p>关于第一段代码其实也可以这样写：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tt = <span class="string">'aa'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> tt;</span><br><span class="line">	alert(tt);</span><br><span class="line">	tt = <span class="string">'dd'</span>;</span><br><span class="line">	alert(tt);</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure></p>
+<p>也许这样写就比较容易得到正确的答案了。因为javascript可以<strong>先使用后定义</strong>，即不用在调用之前作任何声明，所以才有了第一段代码的意想不到。</p>
+<p>然后大家继续看一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a); </span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  <span class="built_in">console</span>.log(a); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn(<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p>输出：function  a(){} 2<br>这又是为什么呢？我们通过第一段代码已经知道：javascript可以先使用后定义这个特性，通过这段代码我们可以发现：javascript是会先把var和function提前声明的，而且function是优先于var声明的（如果同时存在的话），所以提前声明后输出的a是个function，然后代码往下执行a进行重新赋值了，故第二次输出是2。</p>
+<p>重申一下本文的重点：</p>
+<p><strong>1、函数在定义它们的作用域里运行，而不是在执行它们的作用域里运行。</strong><br><strong>2、调用对象位于作用域链的前端，局部变量、函数的参数及Arguments对象都在函数内的作用域中——这意味着它们隐藏了作用域链更上层的任何同名的对象。</strong><br><strong>3、function是优先于var声明的。</strong></p>
+<p>感谢您的阅读，有不足之处请在评论为我指出。</p>
+<h2 id="参考资料">参考资料</h2><p>[1]：<a href="http://www.cnblogs.com/zichi/p/4359786.html" target="_blank" rel="external">这10道javascript笔试题你都会么</a></p>
+<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/06/02/javascript-scope/">http://yangyuji.github.io/2015/06/02/javascript-scope/</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript作用域/">javascript作用域</a>, <a href="/tags/scope/">scope</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<style>
+.prev_next {
+  margin-bottom: 1em;
+  clear: both;
+  background: transparent;
+  overflow: hidden;
+}
+.prev_next a {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5em 1em;
+  background: #fff;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
+  color: #1ba1e2;
+}
+.prev_next a.prev {
+  float: left;
+}
+.prev_next a.next {
+  float: right;
+}
+.prev_next a.disabled {
+  cursor: not-allowed;
+  color: #999;
+}
+.prev_next a.disabled:hover {
+  text-decoration: none;
+}
+</style>
+<div class="prev_next clearfix">
+  
+  <a href="/2015/06/06/javascript-this/" class="prev alignleft" title="JavaScript之this关键字">上一篇<span class="xs-hidden">：JavaScript之this关键字</span></a>
+  
+  
+  <a href="/2015/05/29/javascript-delegation/" class="next alignright" title="Javascript事件事件委托（事件代理）">下一篇<span class="xs-hidden">：Javascript事件事件委托（事件代理）</span></a>
+  
+</div>
+
+
+<section id="comments">
+    <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015/06/02/javascript-scope/" data-title="由两段代码浅谈javascript作用域" data-url="http://yangyuji.github.io/2015/06/02/javascript-scope/"></div>
+	<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"yangyuji"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget about_me">
+  <h3 class="title">About Me</h3>
+  <ul class="entry">
+    
+    <li><img width="200px" title="avatar" src="/img/header.jpg" /></li>
+    
+    
+    <li><a href="/about" target="_self">羊羽集</a></li>
+    
+    <li>联系QQ：394712273</li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/06/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/19/javascript-function/">JavaScript高质量代码之function表达式和function语句</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/15/xmlhttprequest-2.0/">XMLHttpRequest 2.0</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/09/javascript-normal/">JavaScript高质量代码之常用代码优化写法</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/09/javascript-super/">JavaScript高质量代码之类型转换</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>9</small></li>
+  
+    <li><a href="/categories/ajax/">ajax</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 13.33px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+  </div>
+</div>
+
+
+  <div class="widget duoshuo_recent_comments">
+  <h3 class="title">最新评论</h3>
+  <ul class="entry ds-recent-comments" data-num-items="5" data-show-avatars="0" data-show-title="1" data-show-time="1"></ul>
+</div>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"yangyuji"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 yangyuji
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

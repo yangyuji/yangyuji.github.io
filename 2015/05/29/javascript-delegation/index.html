@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Javascript事件事件委托（事件代理） | yangyuji</title>
+  <meta name="author" content="yangyuji">
+  
+  <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Javascript事件事件委托（事件代理）"/>
+  <meta property="og:site_name" content="yangyuji"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="yangyuji" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="/js/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">yangyuji</a></h1>
+  <h2><a href="/">一个屌丝，码农，程序猿</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-05-29T08:38:53.000Z"><a href="/2015/05/29/javascript-delegation/">2015-05-29</a></time>
+      
+      
+  
+    <h1 class="title">Javascript事件事件委托（事件代理）</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="事件委托（事件代理）">事件委托（事件代理）</h2><p>有了事件冒泡和事件捕获的基础，事件委托应该是比较容易学习了。什么是事件委托？对“事件处理程序过多”问题的解决方案就是事件委托。<br>事件委托利用了事件冒泡，只定义一个事件处理程序，就可以管理某一类型的所有事件。例如，click事件会冒泡到document层次，也就是说，我们可以为整个页面指定一个onclick事件处理程序，而不必给每个可单击的元素分别添加事件处理程序。下面我们具体举个例子来解释如何使用这个特性：</p>
+<a id="more"></a>
+<p>举个经常举的例子，比如有如下代码:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"parent-list"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-1"</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-2"</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-3"</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-4"</span>&gt;</span>Item 4<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-5"</span>&gt;</span>Item 5<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-6"</span>&gt;</span>Item 6<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>需要的效果是每点击相应的<li>选项，alert它里面的内容，或许很简单：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">	<span class="keyword">var</span> lis = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'li'</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, len = lis.length; i &lt; len; i++) &#123;</span><br><span class="line">		lis[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="keyword">this</span>.innerHTML);</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></p>
+<p>要给每个li添加一个点击事件，我们通常的写法，是为每个li添加一个onClick的处理函数，但是如上代码绑定了很多个事件，我们知道每个事件绑定都需要占用一定的内存，更糟糕的是，如果在代码执行过程中，动态地又添加了一个li，这时它没有绑定click的事件，我们还需要手动添加！<br>这时，我们就可以用到事件委托技术：使用事件冒泡机制，当事件冒泡到更上层的父节点的时候，我们通过判断Event对象的目标对象（target）来判断并获取事件源li。下面的代码可以完成我们想要的效果：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="comment">//获取父节点，并为它添加一个click事件</span></span><br><span class="line">	<span class="built_in">document</span>.getElementById(<span class="string">"parent-list"</span>).addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">		<span class="comment">//检查事件源e.targe是否为li</span></span><br><span class="line">		<span class="keyword">if</span>(e.target &amp;&amp; e.target.nodeName.toUpperCase() == <span class="string">"LI"</span>) &#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"List item "</span> + e.target.id + <span class="string">" was clicked!"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		e.stopPropagation(); <span class="comment">//阻止事件继续冒泡</span></span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好吧，就是这这样!</p>
+<h2 id="优缺点">优缺点</h2><p><strong>JavaScript事件代理使用的好处：</strong><br>1、那些需要创建的以及驻留在内存中的事件处理器少了。这是很重要的一点，这样我们就提高了性能，并降低了崩溃的风险；<br>2、在DOM更新后无须重新绑定事件处理器了。如果你的页面是动态生成的，比如说通过Ajax，你不再需要在元素被载入或者卸载的时候来添加或者删除事件处理器了。 </p>
+<p><strong>使用中应该注意的问题：</strong><br>1、事件管理代码有成为性能瓶颈的风险，所以尽量使它能够短小精悍；<br>2、不是所有的事件都能冒泡的。blur、focus、load和unload不能像其它事件一样冒泡。事实上blur和focus可以用事件捕获而非事件冒泡的方法获得（在IE之外的其它浏览器中）；<br>3、在管理鼠标事件的时候有些需要注意，如果处理mousemove这样的事件的话遇上性能瓶颈的风险就很大，因为mousemove事件触发非常频繁，而且mouseout则因为其怪异的表现而变得很难用事件代理来管理。</p>
+<h2 id="jquery的事件代理：">jquery的事件代理：</h2><p>现有的主流javascript库的事件代理已经实现了，例如jquery的事件代理方式实现上述功能：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    $(<span class="string">"#parent-list"</span>).delegate(<span class="string">"li"</span>, <span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"you clicked item!"</span>, $(<span class="keyword">this</span>));</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>点击”Item 1”，输出以下信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">you clicked item! [li<span class="comment">#post-1, context: li#post-1]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>另一种写法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">	$(<span class="string">'#parent-list'</span>).click($.delegate(&#123;</span><br><span class="line">	  <span class="string">'.quit'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">"do quit stuff"</span>); &#125;,</span><br><span class="line">	  <span class="string">'.edit'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">"do edit stuff"</span>); &#125;</span><br><span class="line">	&#125;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>感谢您的阅读，有不足之处请在评论为我指出！</p>
+<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/05/29/javascript-delegation/">http://yangyuji.github.io/2015/05/29/javascript-delegation/</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Event/">Event</a>, <a href="/tags/Javascript/">Javascript</a>, <a href="/tags/事件代理/">事件代理</a>, <a href="/tags/事件委托/">事件委托</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<style>
+.prev_next {
+  margin-bottom: 1em;
+  clear: both;
+  background: transparent;
+  overflow: hidden;
+}
+.prev_next a {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5em 1em;
+  background: #fff;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
+  color: #1ba1e2;
+}
+.prev_next a.prev {
+  float: left;
+}
+.prev_next a.next {
+  float: right;
+}
+.prev_next a.disabled {
+  cursor: not-allowed;
+  color: #999;
+}
+.prev_next a.disabled:hover {
+  text-decoration: none;
+}
+</style>
+<div class="prev_next clearfix">
+  
+  <a href="/2015/06/02/javascript-scope/" class="prev alignleft" title="由两段代码浅谈javascript作用域">上一篇<span class="xs-hidden">：由两段代码浅谈javascript作用域</span></a>
+  
+  
+  <a href="/2015/05/27/javascript-event-use/" class="next alignright" title="Javascript事件冒泡和捕获的应用">下一篇<span class="xs-hidden">：Javascript事件冒泡和捕获的应用</span></a>
+  
+</div>
+
+
+<section id="comments">
+    <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015/05/29/javascript-delegation/" data-title="Javascript事件事件委托（事件代理）" data-url="http://yangyuji.github.io/2015/05/29/javascript-delegation/"></div>
+	<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"yangyuji"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget about_me">
+  <h3 class="title">About Me</h3>
+  <ul class="entry">
+    
+    <li><img width="200px" title="avatar" src="/img/header.jpg" /></li>
+    
+    
+    <li><a href="/about" target="_self">羊羽集</a></li>
+    
+    <li>联系QQ：394712273</li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/06/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/19/javascript-function/">JavaScript高质量代码之function表达式和function语句</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/15/xmlhttprequest-2.0/">XMLHttpRequest 2.0</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/09/javascript-normal/">JavaScript高质量代码之常用代码优化写法</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/09/javascript-super/">JavaScript高质量代码之类型转换</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>9</small></li>
+  
+    <li><a href="/categories/ajax/">ajax</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 13.33px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+  </div>
+</div>
+
+
+  <div class="widget duoshuo_recent_comments">
+  <h3 class="title">最新评论</h3>
+  <ul class="entry ds-recent-comments" data-num-items="5" data-show-avatars="0" data-show-title="1" data-show-time="1"></ul>
+</div>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"yangyuji"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 yangyuji
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

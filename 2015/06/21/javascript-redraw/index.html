@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript高质量代码之重绘和重排 | yangyuji</title>
+  <meta name="author" content="yangyuji">
+  
+  <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="JavaScript高质量代码之重绘和重排"/>
+  <meta property="og:site_name" content="yangyuji"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="yangyuji" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="/js/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">yangyuji</a></h1>
+  <h2><a href="/">一个屌丝，码农，程序猿</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-06-21T07:31:44.000Z"><a href="/2015/06/21/javascript-redraw/">2015-06-21</a></time>
+      
+      
+  
+    <h1 class="title">JavaScript高质量代码之重绘和重排</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="什么是重排和重绘">什么是重排和重绘</h1><hr>
+<p>浏览器下载完页面中的所有组件——HTML标记、JavaScript、CSS、图片之后会解析生成两个内部数据结构——DOM树和渲染树。</p>
+<p>DOM树表示页面结构，渲染树表示DOM节点如何显示。DOM树中的每一个需要显示的节点在渲染树种至少存在一个对应的节点（隐藏的DOM元素disply值为none 在渲染树中没有对应的节点）。渲染树中的节点被称为“帧”或“盒”，符合CSS模型的定义，理解页面元素为一个具有填充，边距，边框和位置的盒子。一旦DOM和渲染树构建完成，浏览器就开始显示（绘制）页面元素。<br><a id="more"></a><br>当DOM的变化影响了元素的几何属性（宽或高），浏览器需要重新计算元素的几何属性，同样其他元素的几何属性和位置也会因此受到影响。浏览器会使渲染树中受到影响的部分失效，并重新构造渲染树。这个过程称为重排。完成重排后，浏览器会重新绘制受影响的部分到屏幕，该过程称为重绘。由于浏览器的流布局，对渲染树的计算通常只需要遍历一次就可以完成。但table及其内部元素除外，它可能需要多次计算才能确定好其在渲染树中节点的属性，通常要花3倍于同等元素的时间。这也是为什么我们要避免使用table做布局的一个原因。</p>
+<p>并不是所有的DOM变化都会影响几何属性，比如改变一个元素的背景色并不会影响元素的宽和高，这种情况下只会发生重绘。相反，重排肯定会发生重绘。</p>
+<p>重排和重绘的代价有多大？我们下面还是引用一个实际列子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">	<span class="keyword">var</span> times = <span class="number">15000</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">console</span>.time(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; times; i++) &#123;</span><br><span class="line">	  <span class="built_in">document</span>.getElementById(<span class="string">'myDiv1'</span>).innerHTML += <span class="string">'a'</span>; <span class="comment">//访问+重排+重绘</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">console</span>.timeEnd(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">console</span>.time(<span class="number">2</span>);</span><br><span class="line">	<span class="keyword">var</span> str = <span class="string">''</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; times; i++) &#123;</span><br><span class="line">	  <span class="keyword">var</span> tmp = <span class="built_in">document</span>.getElementById(<span class="string">'myDiv2'</span>).innerHTML; <span class="comment">//只访问</span></span><br><span class="line">	  str += <span class="string">'a'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">document</span>.getElementById(<span class="string">'myDiv2'</span>).innerHTML = str;</span><br><span class="line">	<span class="built_in">console</span>.timeEnd(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">console</span>.time(<span class="number">3</span>);</span><br><span class="line">	<span class="keyword">var</span> _str = <span class="string">''</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; times; i++) &#123;</span><br><span class="line">	  _str += <span class="string">'a'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">document</span>.getElementById(<span class="string">'myDiv3'</span>).innerHTML = _str;</span><br><span class="line">	<span class="built_in">console</span>.timeEnd(<span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我的google浏览器测试结果：<br><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">1</span>: <span class="string">1900.673ms</span></span><br><span class="line"><span class="attribute">2</span>: <span class="string">6.174ms</span></span><br><span class="line"><span class="attribute">3</span>: <span class="string">0.495ms</span></span><br></pre></td></tr></table></figure></p>
+<p>从测试结果可以看出：<strong>重排和重绘消耗最大，访问DOM对于重排和重绘来说，消耗不算多！</strong></p>
+<h1 id="减少重排和重绘">减少重排和重绘</h1><p>现在我们知道重绘和重排消耗非常大，那么该如何尽量减少（不可避免的）页面重绘和重排呢？<br>那么思考下面代码：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ele = <span class="built_in">document</span>.getElementById(<span class="string">'myDiv'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// not good</span></span><br><span class="line">ele.style.borderLeft = <span class="string">'1px'</span>;</span><br><span class="line">ele.style.borderRight = <span class="string">'2px'</span>;</span><br><span class="line">ele.style.padding = <span class="string">'5px'</span>;  <span class="comment">//不会多次访问DOM</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// not good</span></span><br><span class="line">ele.style.borderLeft = <span class="string">'1px'</span>;</span><br><span class="line">ele.style.borderRight = <span class="string">'2px'</span>;</span><br><span class="line">ele.scrollTop = <span class="string">'80px'</span>;  <span class="comment">//不要在样式改变时做布局信息的查询</span></span><br><span class="line">ele.style.padding = <span class="string">'5px'</span>;  </span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">ele.style.cssText = <span class="string">'border-left: 1px; border-right: 2px; padding: 5px;'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">ele.className = <span class="string">'active'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>第一段代码需要说明的是：你可能会说元素的样式改变了三次，每次改变都会引起重排和重绘，所以总共有三次重排重绘过程，但是浏览器并不会这么笨，它会把三次修改“保存”起来（大多数浏览器通过队列化修改并批量执行来优化重排过程），一次完成！<br>第二段代码需要说明的是：获取布局信息的操作会导致DOM树和渲染树构建一次！</p>
+<h1 id="关于fragment元素">关于fragment元素</h1><p>我参考的页面里说这个可以提高执行效率，但是需要用数据说话：<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> times = <span class="number">15000</span>;</span><br><span class="line"><span class="built_in">console</span>.time(<span class="number">1</span>);</span><br><span class="line"><span class="reserved">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">'myDiv2'</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="reserved">var</span> i = <span class="number">0</span>; i &lt; times; i++) &#123;</span><br><span class="line">	<span class="reserved">var</span> li = <span class="built_in">document</span>.createElement(<span class="string">'li'</span>);</span><br><span class="line">	li.innerHTML = <span class="string">'item '</span> + i;</span><br><span class="line">	div.appendChild(li);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="number">2</span>);</span><br><span class="line"><span class="reserved">var</span> fragment = <span class="built_in">document</span>.createDocumentFragment();</span><br><span class="line"><span class="keyword">for</span>(<span class="reserved">var</span> i = <span class="number">0</span>; i &lt; times; i++) &#123;</span><br><span class="line">	<span class="reserved">var</span> li = <span class="built_in">document</span>.createElement(<span class="string">'li'</span>);</span><br><span class="line">	li.innerHTML = <span class="string">'item '</span> + i;</span><br><span class="line">	fragment.appendChild(li);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'myDiv1'</span>).appendChild(fragment);</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="number">2</span>);</span><br></pre></td></tr></table></figure></p>
+<p>测试结果是fragment然并卵，测试数据并没什么差别：<br><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">1</span>: <span class="string">50.436ms</span></span><br><span class="line"><span class="attribute">2</span>: <span class="string">50.710ms</span></span><br></pre></td></tr></table></figure></p>
+<p>参考页面：<br>[1].<a href="http://www.cnblogs.com/zichi/p/4713031.html" target="_blank" rel="external">高性能JavaScript DOM编程</a><br>[2].<a href="http://web.jobbole.com/83164/" target="_blank" rel="external">高性能JavaScript 重排与重绘</a></p>
+<p>感谢您的阅读，有不足之处请在评论为我指出！</p>
+<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/06/21/javascript-redraw/">http://yangyuji.github.io/2015/06/21/javascript-redraw/</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/dom/">dom</a>, <a href="/tags/javascript/">javascript</a>, <a href="/tags/重排/">重排</a>, <a href="/tags/重绘/">重绘</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<style>
+.prev_next {
+  margin-bottom: 1em;
+  clear: both;
+  background: transparent;
+  overflow: hidden;
+}
+.prev_next a {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5em 1em;
+  background: #fff;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
+  color: #1ba1e2;
+}
+.prev_next a.prev {
+  float: left;
+}
+.prev_next a.next {
+  float: right;
+}
+.prev_next a.disabled {
+  cursor: not-allowed;
+  color: #999;
+}
+.prev_next a.disabled:hover {
+  text-decoration: none;
+}
+</style>
+<div class="prev_next clearfix">
+  
+    <a href="javascript:;" class="prev alignleft disabled" title="没有上一篇了">已经是第一篇了</a>
+  
+  
+  <a href="/2015/06/19/javascript-function/" class="next alignright" title="JavaScript高质量代码之function表达式和function语句">下一篇<span class="xs-hidden">：JavaScript高质量代码之function表达式和function语句</span></a>
+  
+</div>
+
+
+<section id="comments">
+    <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015/06/21/javascript-redraw/" data-title="JavaScript高质量代码之重绘和重排" data-url="http://yangyuji.github.io/2015/06/21/javascript-redraw/"></div>
+	<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"yangyuji"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget about_me">
+  <h3 class="title">About Me</h3>
+  <ul class="entry">
+    
+    <li><img width="200px" title="avatar" src="/img/header.jpg" /></li>
+    
+    
+    <li><a href="/about" target="_self">羊羽集</a></li>
+    
+    <li>联系QQ：394712273</li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/06/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/19/javascript-function/">JavaScript高质量代码之function表达式和function语句</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/15/xmlhttprequest-2.0/">XMLHttpRequest 2.0</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/09/javascript-normal/">JavaScript高质量代码之常用代码优化写法</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/09/javascript-super/">JavaScript高质量代码之类型转换</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>9</small></li>
+  
+    <li><a href="/categories/ajax/">ajax</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 13.33px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+  </div>
+</div>
+
+
+  <div class="widget duoshuo_recent_comments">
+  <h3 class="title">最新评论</h3>
+  <ul class="entry ds-recent-comments" data-num-items="5" data-show-avatars="0" data-show-title="1" data-show-time="1"></ul>
+</div>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"yangyuji"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 yangyuji
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
