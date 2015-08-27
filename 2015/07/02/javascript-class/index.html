@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Javascript面向对象编程的三种方法 | yangyuji</title>
+  <meta name="author" content="yangyuji">
+  
+  <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Javascript面向对象编程的三种方法"/>
+  <meta property="og:site_name" content="yangyuji"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="yangyuji" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="/js/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">yangyuji</a></h1>
+  <h2><a href="/">一个屌丝，码农，程序猿</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-07-02T08:06:37.000Z"><a href="/2015/07/02/javascript-class/">2015-07-02</a></time>
+      
+      
+  
+    <h1 class="title">Javascript面向对象编程的三种方法</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="前言">前言</h2><p>虽然不同于传统的面向对象编程语言，但是Javascript是一门面向对象编程语言，支持基于原型的委托式继承。虽然这样，但是组织javascript代码的形式非常灵活，有函数式编程，模块化编程，面向对象编程等等，那么，Javascript如何实现面向对象编程呢？</p>
+<a id="more"></a>
+<h2 id="一、构造函数法">一、构造函数法</h2><p>最常见的方法。它用构造函数模拟”类”，在其内部用this关键字指代实例对象。所谓“构造函数”，就是专门用来生成“对象”的函数。它提供模板，作为对象的基本结构。一个构造函数，可以生成多个对象，这些对象都有相同的结构。<br>构造函数是一个正常的函数，但是它的特征和用法与普通函数不一样。下面就是一个构造函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = <span class="string">"加菲"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>构造函数的最大特点就是，函数体内部使用了this关键字，代表了所要生成的对象实例。生成对象的时候，必需用new命令，调用Cat函数，使用new关键字实例化对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cat1 = <span class="keyword">new</span> Cat();</span><br><span class="line">alert(cat1.name); <span class="comment">//加菲</span></span><br></pre></td></tr></table></figure></p>
+<p>类的属性和方法，还可以定义在构造函数的prototype对象之上，例如可以在Cat这个“类”添加一个makeSound行为：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cat.prototype.makeSound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(<span class="string">"喵喵喵"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 在对象中调用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat1.makeSound(); <span class="comment">//喵喵喵</span></span><br></pre></td></tr></table></figure></p>
+<p>构造函数法的最大特点就是，函数体内部使用了this关键字，代表了所要生成的对象实例。生成对象的时候，必需用new命令，调用Cat函数。</p>
+<h3 id="new命令">new命令</h3><p>上面代码通过new命令，让构造函数Cat生成一个实例对象，保存在变量cat1中。这个新生成的实例对象，从构造函数Cat继承了name属性。在new命令执行时，构造函数内部的this，就代表了新生成的实例对象，this.name表示实例对象的name属性，它的值是”加菲”。<br>使用new命令时，根据需要，构造函数也可以接受参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = n;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> cat2 = <span class="keyword">new</span> Cat(<span class="string">"加菲2"</span>);</span><br></pre></td></tr></table></figure>
+<p>new命令本身就可以执行构造函数，所以后面的构造函数可以带括号，也可以不带括号。下面两行代码是等价的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cat3 = <span class="keyword">new</span> Cat();</span><br><span class="line"><span class="keyword">var</span> cat4 = <span class="keyword">new</span> Cat;</span><br></pre></td></tr></table></figure>
+<p>那么这里有个问题来了，如果忘了使用new命令，直接调用构造函数会发生什么？<br>这种情况下，构造函数就变成了普通函数，并不会生成实例对象。而且由于下面会说到的原因，this这时代表全局对象，将造成一些意想不到的结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"加菲"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> cat = Cat();  <span class="comment">//此时，Cat里面的this == window了</span></span><br><span class="line">alert(cat.name);</span><br><span class="line"><span class="comment">// Uncaught TypeError: Cannot read property 'name' of undefined</span></span><br><span class="line"></span><br><span class="line">alert(name); <span class="comment">// 加菲</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，调用Cat构造函数时，忘了加上new命令。结果，name属性变成了全局变量，而变量cat变成了undefined。<br>这里又有个小提示来了，如果既忘记new，又忘记后面的小括号会怎么样，我们看代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"加菲"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> cat = Cat;  <span class="comment">//此时，cat就是构造函数本身了</span></span><br><span class="line">alert(cat.name);<span class="comment">//哈哈，这里最搞笑，会弹出Cat，那是因为构造函数本身会有个名字属性name（另外还有：arguments，caller，length等），即Cat</span></span><br></pre></td></tr></table></figure></p>
+<p>因此，应该非常小心，避免出现不使用new命令、直接调用构造函数的情况。为了保证构造函数必须与new命令一起使用，一个解决办法是，在构造函数内部使用严格模式，即第一行加上‘use strict’。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line"><span class="pi">  "use strict"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>._name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat();</span><br><span class="line"><span class="comment">// TypeError: Cannot set property '_name' of undefined</span></span><br></pre></td></tr></table></figure>
+<p>上面代码的Cat为构造函数，use strict命令保证了该函数在严格模式下运行。由于在严格模式中，函数内部的this不能指向全局对象，默认等于undefined，导致不加new调用会报错（JavaScript不允许对undefined添加属性）。</p>
+<p>另一个解决办法，是在构造函数内部判断是否使用new命令，如果发现没有使用，则直接返回一个实例对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!(<span class="keyword">this</span> <span class="keyword">instanceof</span> Cat)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Cat(name);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>._name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat(<span class="number">1</span>)._name <span class="comment">// 1</span></span><br><span class="line">(<span class="keyword">new</span> Cat(<span class="number">1</span>))._name <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中的构造函数，不管加不加new命令，都会得到同样的结果。</p>
+<h3 id="new命令的原理">new命令的原理</h3><p>1、使用new命令时，它后面的函数调用就不是正常的调用，而是被new命令控制了。</p>
+<p>2、new内部的流程是，先创造一个空对象，作为上下文对象，赋值给函数内部的this关键字。也就是说，this指的是一个新生成的空对象，所有针对this的操作，都会发生在这个空对象上。</p>
+<p>3、构造函数之所以叫“构造函数”，就是说这个函数的目的，就是操作上下文对象（即this对象），将其“构造”为需要的样子。</p>
+<p>4、如果构造函数的return语句返回的是对象，new命令会返回return语句指定的对象；否则，就会不管return语句，返回构造后的上下文对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"加菲"</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">"加菲"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">(<span class="keyword">new</span> Cat()) === <span class="string">"加菲"</span></span><br><span class="line"><span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，Cat是一个构造函数，它的return语句返回一个字符串常量。这时，new命令就会忽略这个return语句，返回“构造”后的this对象。<br>但是，如果return语句返回的是一个跟this无关的新对象，new命令会返回这个新对象，而不是this对象。这一点需要特别引起注意。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.sex = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> &#123; sex: <span class="number">2</span>&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">(<span class="keyword">new</span> Cat()).sex</span><br><span class="line"><span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，构造函数Cat的return语句，返回的是一个新对象。new命令会返回这个对象，而不是this对象。<br>new命令简化的内部流程，可以用下面的代码表示：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_new</span>(<span class="params"><span class="comment">/* constructor, param, ... */</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="keyword">var</span> constructor = args.shift();</span><br><span class="line">  <span class="keyword">var</span> context = <span class="built_in">Object</span>.create(constructor.prototype);</span><br><span class="line">  <span class="keyword">var</span> result = constructor.apply(context, args);</span><br><span class="line">  <span class="keyword">return</span> (<span class="keyword">typeof</span> result === <span class="string">'object'</span> &amp;&amp; result != <span class="literal">null</span>) ? result : context;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> actor = _new(Person, <span class="string">"张三"</span>, <span class="number">28</span>);</span><br></pre></td></tr></table></figure></p>
+<p>由于篇幅过大，我们这里暂时只延伸到new关键字，对于另外几个和面向对象密切相关的关键字将在以后的文章中继续讨论，例如：<strong>this</strong>，<strong>instanceof</strong>，<strong>prototype</strong>等。</p>
+<h2 id="二、Object-create()法">二、Object.create()法</h2><p>为了解决”构造函数法”的缺点，更方便地生成对象，Javascript的国际标准ECMAScript第五版（目前通行的是第三版），提出了一个新的方法Object.create()。</p>
+<p>用这个方法，“类”就是一个对象，不是函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Cat = &#123;</span><br><span class="line">	name: <span class="string">"加菲"</span>,</span><br><span class="line">	makeSound: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">"喵喵喵"</span>); &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后，直接用Object.create()生成实例，不需要用到new：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cat = <span class="built_in">Object</span>.create(Cat);</span><br><span class="line">alert(cat.name); <span class="comment">// 加菲</span></span><br><span class="line">cat.makeSound(); <span class="comment">// 喵喵喵</span></span><br></pre></td></tr></table></figure></p>
+<p>目前，各大浏览器的最新版本（包括IE9）都部署了这个方法。如果遇到老式浏览器，可以用下面的代码兼容。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="built_in">Object</span>.create) &#123;</span><br><span class="line">	<span class="built_in">Object</span>.create = <span class="function"><span class="keyword">function</span> (<span class="params">o</span>) </span>&#123;</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">		F.prototype = o;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法比”构造函数法”简单，但是不能实现私有属性和私有方法，实例对象之间也不能共享数据，对”类”的模拟不够全面。</p>
+<h2 id="三、极简主义法（我的定义是闭包法）">三、极简主义法（我的定义是闭包法）</h2><p>荷兰程序员Gabor de Mooij提出了一种比Object.create()更好的新方法，他称这种方法为”极简主义法”（minimalist approach）。<br>首先，它也是用一个对象模拟”类”。在这个类里面，定义一个对象createNew()，用来生成实例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Cat = &#123;</span><br><span class="line">	createNew: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">// some code here</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后，在createNew()里面，定义一个实例对象，把这个实例对象作为返回值：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Cat = &#123;</span><br><span class="line">	createNew: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> cat = &#123;&#125;;</span><br><span class="line">		cat.name = <span class="string">"加菲"</span>;</span><br><span class="line">		cat.makeSound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">"喵喵喵"</span>); &#125;;</span><br><span class="line">		<span class="keyword">return</span> cat;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>使用的时候，调用createNew()方法，就可以得到实例对象：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cat1 = Cat.createNew();</span><br><span class="line">cat1.makeSound(); <span class="comment">// 喵喵喵</span></span><br></pre></td></tr></table></figure></p>
+<p>这种方法的好处是，容易理解，结构清晰优雅，符合传统的”面向对象编程”的构造，因此可以方便地实现面向对象的”继承、多态“等特性。</p>
+<h3 id="继承">继承</h3><p>让一个类继承另一个类，实现起来很方便。只要在前者的createNew()方法中，调用后者的createNew()方法即可。<br>先定义一个Animal类：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Animal = &#123;</span><br><span class="line">	createNew: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> animal = &#123;&#125;;</span><br><span class="line">		animal.sleep = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">"睡懒觉"</span>); &#125;;</span><br><span class="line">		<span class="keyword">return</span> animal;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>然后，在Cat的createNew()方法中，调用Animal的createNew()方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Cat = &#123;</span><br><span class="line">	createNew: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> cat = Animal.createNew();</span><br><span class="line">		cat.name = <span class="string">"大毛"</span>;</span><br><span class="line">		cat.makeSound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; alert(<span class="string">"喵喵喵"</span>); &#125;;</span><br><span class="line">		<span class="keyword">return</span> cat;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这样得到的Cat实例，就会同时继承Cat类和Animal类。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cat1 = Cat.createNew();</span><br><span class="line">cat1.sleep(); <span class="comment">// 睡懒觉</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="私有属性和私有方法">私有属性和私有方法</h3><p>在createNew()方法中，只要不是定义在cat对象上的方法和属性，都是私有的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Cat = &#123;</span><br><span class="line">	createNew: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> cat = &#123;&#125;;</span><br><span class="line">		<span class="keyword">var</span> sound = <span class="string">"喵喵喵"</span>;</span><br><span class="line">		cat.makeSound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; alert(sound); &#125;;</span><br><span class="line">		<span class="keyword">return</span> cat;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上例的内部变量sound，外部无法读取，只有通过cat的公有方法makeSound()来读取：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cat1 = Cat.createNew();</span><br><span class="line">alert(cat1.sound); <span class="comment">// undefined</span></span><br><span class="line">alert(cat1.makeSound()); <span class="comment">// 喵喵喵</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="数据共享">数据共享</h3><p>有时候，我们需要所有实例对象，能够读写同一项内部数据。这个时候，只要把这个内部数据，封装在类对象的createNew()方法的外面即可：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Cat = &#123;</span><br><span class="line">	sound : <span class="string">"喵喵喵"</span>,</span><br><span class="line">	createNew: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> cat = &#123;&#125;;</span><br><span class="line">		cat.makeSound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; alert(Cat.sound); &#125;;</span><br><span class="line">		cat.changeSound = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123; Cat.sound = x; &#125;;</span><br><span class="line">		<span class="keyword">return</span> cat;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>现在生成两个实例对象：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cat1 = Cat.createNew();</span><br><span class="line"><span class="keyword">var</span> cat2 = Cat.createNew();</span><br><span class="line">cat1.makeSound(); <span class="comment">// 喵喵喵</span></span><br></pre></td></tr></table></figure></p>
+<p>这时，如果有一个实例对象，修改了共享的数据，另一个实例对象也会受到影响：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat2.changeSound(<span class="string">"啦啦啦"</span>);</span><br><span class="line">cat1.makeSound(); <span class="comment">// 啦啦啦</span></span><br></pre></td></tr></table></figure></p>
+<p>感谢您的阅读，有不足之处请在评论为我指出。</p>
+<h2 id="参考资料">参考资料</h2><p>[1]：<a href="http://javascript.ruanyifeng.com/oop/basic.html" target="_blank" rel="external">javascript标准参考教程</a><br>[2]：<a href="http://web.jobbole.com/23563/" target="_blank" rel="external">Javascript定义类（class）的三种方法</a></p>
+<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/07/02/javascript-class/">http://yangyuji.github.io/2015/07/02/javascript-class/</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/javascript/">javascript</a>, <a href="/tags/javascript面向对象，this/">javascript面向对象，this</a>, <a href="/tags/new/">new</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<style>
+.prev_next {
+  margin-bottom: 1em;
+  clear: both;
+  background: transparent;
+  overflow: hidden;
+}
+.prev_next a {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5em 1em;
+  background: #fff;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
+  color: #1ba1e2;
+}
+.prev_next a.prev {
+  float: left;
+}
+.prev_next a.next {
+  float: right;
+}
+.prev_next a.disabled {
+  cursor: not-allowed;
+  color: #999;
+}
+.prev_next a.disabled:hover {
+  text-decoration: none;
+}
+</style>
+<div class="prev_next clearfix">
+  
+    <a href="javascript:;" class="prev alignleft disabled" title="没有上一篇了">已经是第一篇了</a>
+  
+  
+  <a href="/2015/06/23/javascript-customer-event/" class="next alignright" title="javascript自定义事件">下一篇<span class="xs-hidden">：javascript自定义事件</span></a>
+  
+</div>
+
+
+<section id="comments">
+    <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015/07/02/javascript-class/" data-title="Javascript面向对象编程的三种方法" data-url="http://yangyuji.github.io/2015/07/02/javascript-class/"></div>
+	<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"yangyuji"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget about_me">
+  <h3 class="title">About Me</h3>
+  <ul class="entry">
+    
+    <li><img width="200px" title="avatar" src="/img/header.jpg" /></li>
+    
+    
+    <li><a href="/about" target="_self">羊羽集</a></li>
+    
+    <li>联系QQ：394712273</li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/07/02/javascript-class/">Javascript面向对象编程的三种方法</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/23/javascript-customer-event/">javascript自定义事件</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/19/javascript-function/">JavaScript高质量代码之function表达式和function语句</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/15/xmlhttprequest-2.0/">XMLHttpRequest 2.0</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>10</small></li>
+  
+    <li><a href="/categories/ajax/">ajax</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 16.67px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/javascript面向对象，this/" style="font-size: 10px;">javascript面向对象，this</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/自定义事件/" style="font-size: 10px;">自定义事件</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+  </div>
+</div>
+
+
+  <div class="widget duoshuo_recent_comments">
+  <h3 class="title">最新评论</h3>
+  <ul class="entry ds-recent-comments" data-num-items="5" data-show-avatars="0" data-show-title="1" data-show-time="1"></ul>
+</div>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"yangyuji"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 yangyuji
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

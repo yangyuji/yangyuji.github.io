@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yangyuji.github.io/2015/07/02/javascript-class/</loc>
+    <lastmod>2015-08-27T11:24:56.790Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yangyuji.github.io/2015/06/23/javascript-customer-event/</loc>
+    <lastmod>2015-08-23T14:37:28.542Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yangyuji.github.io/2015/06/13/javascript-super/</loc>
     <lastmod>2015-08-23T09:18:41.934Z</lastmod>
   </url>

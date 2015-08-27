@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>javascript自定义事件 | yangyuji</title>
+  <meta name="author" content="yangyuji">
+  
+  <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="javascript自定义事件"/>
+  <meta property="og:site_name" content="yangyuji"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="yangyuji" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="/js/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">yangyuji</a></h1>
+  <h2><a href="/">一个屌丝，码农，程序猿</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-06-23T03:22:19.000Z"><a href="/2015/06/23/javascript-customer-event/">2015-06-23</a></time>
+      
+      
+  
+    <h1 class="title">javascript自定义事件</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>浏览器内置了一些javascript的方法，比如说click, mouseover, mousein … 可以在用户进行了一些浏览器内置的默认行为（点击，鼠标滑过DOM）的时候会触发。<br>所谓自定义事件，就是有别于有别于带有浏览器特定行为的事件(类似click, mouseover, submit, keydown等事件)，事件名称可以随意定义，可以通过特定的方法进行添加，触发以及删除。<br>jQuery的有个bind方法，可以添加一些用户自定义的事件，再用trigger的方法来触发。<br><a id="more"></a></p>
+<p>我们先实现一个事件对象用来管理自定义事件：<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Event = &#123;</span><br><span class="line">    _listeners: &#123;&#125;,    </span><br><span class="line">    addEvent: <span class="function"><span class="keyword">function</span>(<span class="params"><span class="keyword">type</span>, fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>._listeners[<span class="keyword">type</span>] === <span class="string">"undefined"</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>._listeners[<span class="keyword">type</span>] = [];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> fn === <span class="string">"function"</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>._listeners[<span class="keyword">type</span>].push(fn);</span><br><span class="line">        &#125;    </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    fireEvent: <span class="function"><span class="keyword">function</span>(<span class="params"><span class="keyword">type</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> arrayEvent = <span class="keyword">this</span>._listeners[<span class="keyword">type</span>];</span><br><span class="line">        <span class="keyword">if</span> (arrayEvent <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>, length = arrayEvent.length; i &lt; length; i += <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> arrayEvent[i] === <span class="string">"function"</span>) &#123;</span><br><span class="line">                    arrayEvent[i](&#123;</span><br><span class="line">                        <span class="keyword">type</span>: <span class="keyword">type</span></span><br><span class="line">                    &#125;);    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;    </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    removeEvent: <span class="function"><span class="keyword">function</span>(<span class="params"><span class="keyword">type</span>, fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> arrayEvent = <span class="keyword">this</span>._listeners[<span class="keyword">type</span>];</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">type</span> === <span class="string">"string"</span> &amp;&amp; arrayEvent <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> fn === <span class="string">"function"</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>, length = arrayEvent.length; i &lt; length; i += <span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span> (arrayEvent[i] === fn)&#123;</span><br><span class="line">                        <span class="keyword">this</span>._listeners[<span class="keyword">type</span>].splice(i, <span class="number">1</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">delete</span> <span class="keyword">this</span>._listeners[<span class="keyword">type</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>测试使用自定义事件代码：<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加自定义事件</span></span><br><span class="line">var fn1, fn2;</span><br><span class="line">Event.addEvent<span class="params">(<span class="string">"alert"</span>, fn1 = function<span class="params">()</span> &#123;</span><br><span class="line">    alert<span class="params">(<span class="string">"第一个弹出！"</span>)</span>;</span><br><span class="line">&#125;)</span>.addEvent<span class="params">(<span class="string">"alert"</span>, fn2 = function<span class="params">()</span> &#123;</span><br><span class="line">    alert<span class="params">(<span class="string">"第二个弹出！"</span>)</span>;</span><br><span class="line">&#125;)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按钮绑定事件，用来清除自定义事件</span></span><br><span class="line">var elButton1 = document.getElementById<span class="params">(<span class="string">"button1"</span>)</span>,</span><br><span class="line">    elButton2 = document.getElementById<span class="params">(<span class="string">"button2"</span>)</span>;</span><br><span class="line"></span><br><span class="line">elButton1.onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">    Event.removeEvent<span class="params">(<span class="string">"alert"</span>)</span>;</span><br><span class="line">    alert<span class="params">(<span class="string">"alert事件清除成功！"</span>)</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 此时后一个按钮卧底了，故隐藏</span></span><br><span class="line">    elButton2.style.display = <span class="string">"none"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">elButton2.onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">    Event.removeEvent<span class="params">(<span class="string">"alert"</span>, fn1)</span>;</span><br><span class="line">    alert<span class="params">(<span class="string">"第一个alert清除成功！"</span>)</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 点击文档，触发自定义事件</span></span><br><span class="line">document.onclick = <span class="function"><span class="keyword">function</span><span class="params">(e)</span> &#123;</span></span><br><span class="line">    e = e || window.event;</span><br><span class="line">    var target = e.target || e.srcElement;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 如果文档点击元素标签名不是input</span></span><br><span class="line">    <span class="keyword">if</span> <span class="params">(!target || !/input|pre/i.test<span class="params">(target.tagName)</span>)</span> &#123;</span><br><span class="line">        Event.fireEvent<span class="params">(<span class="string">"alert"</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>对javascript的事件自定义，只是其庞大事件系统的冰山一角。<br>口水横飞的讲了这么多，不知道你会不会有这样的疑问。<br>自定的这些事件有个蛋用啊！？</p>
+<p>网上关于自定义事件的方法一抓能有一把，但是总结为何这样做的文章却很少。<br>具我在项目中使用情况看来，可以总结出起码有如下两种情形：<br>a). 在制作一些前端组件的时候，可以为特定的事件添加钩子<br>举个栗子：<br>人人网的表情组件<br>开发人员可以对new了XN.ui.emoticons这么个对象后的返回值添加各种事件。组件中已经在各个关键节点（渲染结构，绑定事件，展示）的地方fireEvent了这些事件。<br>这样就可以进行无侵入式的编程。在不改变原有逻辑的情况下，添加一些自己想要的行为，岂不爽哉！？</p>
+<p>b). 模块化开发中，可以方面的为各个模块之间进行解耦<br>现在的前端工程里，有追求的前端们（咳咳，你懂的！）大多使用了common.js的规范来组织前端代码，各个模块的数据和操作都可能是独立的，但是模块和模块之间的沟通通过什么方式来进行呢？<br>（自定义事件！）<br>恭喜，都会抢答了。<br>细细说来，有点类似于前些文章中聊到的观察者模式，在我发布了一篇微博的时候，需要出发右侧的微博数目。这个时候，我就可以在发布框的模块中，trigger或者是fireEvent一下事先已经绑定在右侧数目计数器上的一个自定义的事件，这个举例比较简单，如果模块功能很复杂，就能做到充分的解耦。<br>能力有限，欢迎各路大神继续补充和拍砖。</p>
+<p>参考页面：<br>[1].<a href="http://www.zhangxinxu.com/wordpress/2013/10/understand-domstring-document-formdata-blob-file-arraybuffer/" target="_blank" rel="external">理解DOMString、Document、FormData、Blob、File、ArrayBuffer数据类型</a><br>[2].<a href="http://blog.csdn.net/oscar999/article/details/36373183" target="_blank" rel="external">[JS进阶] JS 之Blob 对象类型</a></p>
+<p>感谢您的阅读，有不足之处请在评论为我指出！</p>
+<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/06/15/xmlhttprequest-2.0/">http://yangyuji.github.io/2015/06/15/xmlhttprequest-2.0/</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/ajax/">ajax</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Event/">Event</a>, <a href="/tags/javascript/">javascript</a>, <a href="/tags/自定义事件/">自定义事件</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<style>
+.prev_next {
+  margin-bottom: 1em;
+  clear: both;
+  background: transparent;
+  overflow: hidden;
+}
+.prev_next a {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5em 1em;
+  background: #fff;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
+  color: #1ba1e2;
+}
+.prev_next a.prev {
+  float: left;
+}
+.prev_next a.next {
+  float: right;
+}
+.prev_next a.disabled {
+  cursor: not-allowed;
+  color: #999;
+}
+.prev_next a.disabled:hover {
+  text-decoration: none;
+}
+</style>
+<div class="prev_next clearfix">
+  
+  <a href="/2015/07/02/javascript-class/" class="prev alignleft" title="Javascript面向对象编程的三种方法">上一篇<span class="xs-hidden">：Javascript面向对象编程的三种方法</span></a>
+  
+  
+  <a href="/2015/06/21/javascript-redraw/" class="next alignright" title="JavaScript高质量代码之重绘和重排">下一篇<span class="xs-hidden">：JavaScript高质量代码之重绘和重排</span></a>
+  
+</div>
+
+
+<section id="comments">
+    <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015/06/23/javascript-customer-event/" data-title="javascript自定义事件" data-url="http://yangyuji.github.io/2015/06/23/javascript-customer-event/"></div>
+	<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"yangyuji"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget about_me">
+  <h3 class="title">About Me</h3>
+  <ul class="entry">
+    
+    <li><img width="200px" title="avatar" src="/img/header.jpg" /></li>
+    
+    
+    <li><a href="/about" target="_self">羊羽集</a></li>
+    
+    <li>联系QQ：394712273</li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/07/02/javascript-class/">Javascript面向对象编程的三种方法</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/23/javascript-customer-event/">javascript自定义事件</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/19/javascript-function/">JavaScript高质量代码之function表达式和function语句</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/15/xmlhttprequest-2.0/">XMLHttpRequest 2.0</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>10</small></li>
+  
+    <li><a href="/categories/ajax/">ajax</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 16.67px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/javascript面向对象，this/" style="font-size: 10px;">javascript面向对象，this</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/自定义事件/" style="font-size: 10px;">自定义事件</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+  </div>
+</div>
+
+
+  <div class="widget duoshuo_recent_comments">
+  <h3 class="title">最新评论</h3>
+  <ul class="entry ds-recent-comments" data-num-items="5" data-show-avatars="0" data-show-title="1" data-show-time="1"></ul>
+</div>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"yangyuji"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 yangyuji
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
