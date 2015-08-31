@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yangyuji.github.io/2015/06/19/javascript-function/</loc>
+    <lastmod>2015-08-31T11:48:58.551Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yangyuji.github.io/2015/07/04/javascript-console/</loc>
-    <lastmod>2015-08-31T11:25:19.347Z</lastmod>
+    <lastmod>2015-08-31T11:42:46.209Z</lastmod>
   </url>
   
   <url>
@@ -44,11 +49,6 @@
   <url>
     <loc>http://yangyuji.github.io/2015/06/09/javascript-normal/</loc>
     <lastmod>2015-08-23T09:12:42.067Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://yangyuji.github.io/2015/06/19/javascript-function/</loc>
-    <lastmod>2015-08-23T09:12:11.282Z</lastmod>
   </url>
   
   <url>
