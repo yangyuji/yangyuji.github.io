@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>你真的会使用console调试js吗 | yangyuji</title>
+  <meta name="author" content="yangyuji">
+  
+  <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="你真的会使用console调试js吗"/>
+  <meta property="og:site_name" content="yangyuji"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="yangyuji" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="/js/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">yangyuji</a></h1>
+  <h2><a href="/">一个屌丝，码农，程序猿</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-07-04T04:42:21.000Z"><a href="/2015/07/04/javascript-console/">2015-07-04</a></time>
+      
+      
+  
+    <h1 class="title">你真的会使用console调试js吗</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>本文阐述的内容和代码都是在chrome浏览器的开发者工具环境中。</p>
+<p>chrome的dev tool作为web页面的开发利器，能够极大地提升工作效率，现在想想刚入行用dw编写页面是多么的痛苦。<br>dev tool有多个面板，相信有一点开发经验的都会对他们有所了解，这里我们只讲Console面板里的其中一条命令——console，其他的使用命令可以自行百度+谷歌。<br><a id="more"></a></p>
+<p>首先我们打开控制台面板，输入console，可以得到提示如下图：<br><img src="http://yangyuji.github.io/img/console01.png" alt="console"></p>
+<h2 id="console-log">console.log</h2><p>抛开带下划线的那几个方法不谈，从log开始。大家都会用console.log，但是还有其他三个方法将输出到控制台的信息进行归类，或者说让它们更语义化。<br>各个所代表的语义如下：</p>
+<ul>
+<li>console.log：普通信息</li>
+<li>console.info：提示类信息</li>
+<li>console.error：错误信息</li>
+<li>console.warn：警示信息<br>不同的语义有不同字体颜色前置标识。</li>
+</ul>
+<h2 id="console-group">console.group</h2><p>在这个基础上，我们如果再配合console.group 与console.groupEnd，可以将这种分类管理的思想发挥到极致。这适合于在开发一个规模很大模块很多很复杂的Web APP时，将各自的log信息分组到以各自命名空间为名称的组里面。<br>用法：<br>···<br>console.group(“组名”);<br>//console.log(“info”);<br>console.groupEnd();<br>···</p>
+<h2 id="console-table">console.table</h2><p>console.table是直接以表格的形式将json数组对象输出，不要太惊叹哦！<br>···<br>var data = [{‘name’: ‘yangyuji’, ‘sex’: 1}, {‘name’: ‘oujizeng’, ‘sex’: 1}];<br>console.table(data);<br>···</p>
+<h2 id="console-assert">console.assert</h2><p>当你想代码满足某些条件时才输出信息到控制台，那么你大可不必写if或者三元表达式来达到目的，cosole.assert便是这样场景下一种很好的工具，它会先对传入的表达式进行断言，只有表达式为假时才输出相应信息到控制台。<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> isDebug = <span class="literal">false</span>;</span><br><span class="line"><span class="built_in">console</span>.assert(isDebug, <span class="string">'开发模式下输出的信息。。。'</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="console-count">console.count</h2><p>除了条件输出的场景，还有常见的场景是计数。<br>当你想统计某段代码执行了多少次时也大可不必自己去写相关逻辑，内置的console.count可以很地胜任这样的任务。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function <span class="function"><span class="title">fun</span><span class="params">()</span>&#123;</span></span><br><span class="line">	<span class="comment">//code here</span></span><br><span class="line">	console.count('<span class="function"><span class="keyword">fun</span> use');</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">fun</span><span class="params">()</span>; <span class="comment">//fun use: 1</span></span></span><br><span class="line"><span class="function"><span class="title">fun</span><span class="params">()</span>; <span class="comment">//fun use: 2</span></span></span><br><span class="line"><span class="function"><span class="title">fun</span><span class="params">()</span>; <span class="comment">//fun use: 3</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="console-dir">console.dir</h2><p>将DOM结点以JavaScript对象的形式输出到控制台。<br>而console.log是直接将该DOM结点以DOM树的结构进行输出，与在元素审查时看到的结构是一致的。<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.dir(<span class="built_in">document</span>.body);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.body);</span><br></pre></td></tr></table></figure></p>
+<p>还可以利用console.dir实现查看对象的方法和属性，例如：<br>···<br>console.dir(console);<br>···</p>
+<h2 id="console-time">console.time</h2><p>输出一些调试信息是控制台最常用的功能，当然，它的功能远不止于此。当做一些性能测试时，同样可以在这里很方便地进行。<br>如需要考量一段代码执行的耗时情况时，可以用console.time与 console.timeEnd来做此事。<br>这里借用官方文档的例子：<br>···<br>console.time(“Array initialize”);<br>var array= new Array(1000000);<br>for (var i = array.length - 1; i &gt;= 0; i—) {<br>    array[i] = new Object();<br>};<br>console.timeEnd(“Array initialize”);<br>···<br>当然，你也可以自己写代码来计时，用相信你用内置的console.time是多么地方便，省去了自己写代码来计算的工作量。另外值得一提的是，通过调用内置的console.time得到的结果要比自己手动计算的时间差更精确可靠。</p>
+<h2 id="console-profile">console.profile</h2><p>这一功能要用到Chrome开发者工具里面的Profile选项，不过默认情况下是不可以自定义某一段代码的执行使用情况。<br>当想要查看某一段代码的CPU使用相关的信息时，可以使用console.profile配合 console.profileEnd来完成这个需求。<br>同样参考上面那个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.profile(<span class="string">"Array initialize"</span>);</span><br><span class="line"><span class="keyword">var</span> array= <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1000000</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = array.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">	array[i] = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.profileEnd(<span class="string">"Array initialize"</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="console-timeline">console.timeline</h2><p>console.timeline与profile功能类似，配合 console.timelineEnd，它的作用是开始记录一段时间轴，同样可以通过Chrome 开发者工具里的Timeline 标签来进行相应操作。<br>这个方法Chrome开发者工具已经提示“不赞成”使用了，而建议使用 console.time 。提示如下：<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">'console</span>.timeline' <span class="keyword">is</span> deprecated. Please <span class="keyword">use</span> <span class="attribute">'console</span>.<span class="typename">time</span>' instead.</span><br><span class="line"><span class="attribute">'console</span>.timelineEnd' <span class="keyword">is</span> deprecated. Please <span class="keyword">use</span> <span class="attribute">'console</span>.timeEnd' instead.</span><br></pre></td></tr></table></figure></p>
+<h2 id="console-trace">console.trace</h2><p>console.trace()用来追踪函数的调用轨迹。<br>比如，有一个加法器函数。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(a, b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我想知道这个函数是如何被调用的，在其中加入console.trace()方法就可以了。<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(a, b)</span></span>&#123;</span><br><span class="line">	console.<span class="keyword">trace</span>();</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>假定这个函数的调用代码如下：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">var</span> x = add3(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">add3</span><span class="params">(a,b)</span></span>&#123;<span class="keyword">return</span> add2(a,b);&#125;</span><br><span class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">add2</span><span class="params">(a,b)</span></span>&#123;<span class="keyword">return</span> add1(a,b);&#125;</span><br><span class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">add1</span><span class="params">(a,b)</span></span>&#123;<span class="keyword">return</span> add(a,b);&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行后，会显示add()的调用轨迹，从上到下依次为add()、add1()、add2()、add3()。</p>
+<p>感谢您的阅读，有不足之处请在评论为我指出！</p>
+<h2 id="参考资料">参考资料</h2><p>[1]：<a href="http://www.ruanyifeng.com/blog/2011/03/firebug_console_tutorial.html" target="_blank" rel="external">Firebug控制台详解</a><br>[2]：<a href="http://www.cnblogs.com/Wayou/p/chrome-console-tips-and-tricks.html" target="_blank" rel="external">Chrome 控制台不完全指南</a></p>
+<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/07/04/javascript-console/">http://yangyuji.github.io/2015/07/04/javascript-console/</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/chrome-debug/">chrome debug</a>, <a href="/tags/console/">console</a>, <a href="/tags/debug/">debug</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<style>
+.prev_next {
+  margin-bottom: 1em;
+  clear: both;
+  background: transparent;
+  overflow: hidden;
+}
+.prev_next a {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5em 1em;
+  background: #fff;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
+  color: #1ba1e2;
+}
+.prev_next a.prev {
+  float: left;
+}
+.prev_next a.next {
+  float: right;
+}
+.prev_next a.disabled {
+  cursor: not-allowed;
+  color: #999;
+}
+.prev_next a.disabled:hover {
+  text-decoration: none;
+}
+</style>
+<div class="prev_next clearfix">
+  
+    <a href="javascript:;" class="prev alignleft disabled" title="没有上一篇了">已经是第一篇了</a>
+  
+  
+  <a href="/2015/07/02/javascript-class/" class="next alignright" title="Javascript面向对象编程的三种方法">下一篇<span class="xs-hidden">：Javascript面向对象编程的三种方法</span></a>
+  
+</div>
+
+
+<section id="comments">
+    <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015/07/04/javascript-console/" data-title="你真的会使用console调试js吗" data-url="http://yangyuji.github.io/2015/07/04/javascript-console/"></div>
+	<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"yangyuji"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget about_me">
+  <h3 class="title">About Me</h3>
+  <ul class="entry">
+    
+    <li><img width="200px" title="avatar" src="/img/header.jpg" /></li>
+    
+    
+    <li><a href="/about" target="_self">羊羽集</a></li>
+    
+    <li>联系QQ：394712273</li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/07/04/javascript-console/">你真的会使用console调试js吗</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/02/javascript-class/">Javascript面向对象编程的三种方法</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/23/javascript-customer-event/">javascript自定义事件</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/19/javascript-function/">JavaScript高质量代码之function表达式和function语句</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>11</small></li>
+  
+    <li><a href="/categories/ajax/">ajax</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 16.67px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/chrome-debug/" style="font-size: 10px;">chrome debug</a> <a href="/tags/console/" style="font-size: 10px;">console</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/javascript面向对象，this/" style="font-size: 10px;">javascript面向对象，this</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/自定义事件/" style="font-size: 10px;">自定义事件</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+  </div>
+</div>
+
+
+  <div class="widget duoshuo_recent_comments">
+  <h3 class="title">最新评论</h3>
+  <ul class="entry ds-recent-comments" data-num-items="5" data-show-avatars="0" data-show-title="1" data-show-time="1"></ul>
+</div>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"yangyuji"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 yangyuji
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
