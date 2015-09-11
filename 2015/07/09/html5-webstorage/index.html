@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>HTML5֮���ش洢 | yangyuji</title>
+  <title>HTML5之本地存储 | yangyuji</title>
   <meta name="author" content="yangyuji">
   
   <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="HTML5֮���ش洢"/>
+  <meta property="og:title" content="HTML5之本地存储"/>
   <meta property="og:site_name" content="yangyuji"/>
 
   
@@ -56,32 +56,32 @@
       
       
   
-    <h1 class="title">HTML5֮���ش洢</h1>
+    <h1 class="title">HTML5之本地存储</h1>
   
 
     </header>
     <div class="entry">
       
-        <h2 id="Web_Storage">Web Storage</h2><p>��H5����֮ǰ������������Ҫ�����ݴ����û��ˣ������뵽�ľ���Cookie������Cookie�������кܶ಻�õĵط������磺</p>
+        <h2 id="Web_Storage">Web Storage</h2><p>在H5出来之前，如果我们需要把数据存在用户端，我们想到的就是Cookie。但是Cookie本来就有很多不好的地方，比如：</p>
 <ol>
-<li>Cookie�������洢�Ĵ�Сֻ����4kb������IE6ֻ֧��ÿ������20��cookies��</li>
-<li>�������Ƿ����ã�</li>
-<li>ÿ������ʱ���ὫCookie��Ϣ������������Ϣ�У������˶����Ĵ����ȡ�<a id="more"></a>
+<li>Cookie的里面存储的大小只能是4kb，而且IE6只支持每个域名20个cookies；</li>
+<li>浏览器是否禁用；</li>
+<li>每次请求时都会将Cookie信息包含在请求信息中，增加了额外的带宽等。<a id="more"></a>
 </li>
 </ol>
-<p>������Ϊ������ȱ�ݣ�H5�������ṩ���µĽ��򷽰���sessionStorage��localStorage��<br>������ʹ��������</p>
+<p>正是因为诸多的缺陷，H5给我们提供了新的解决方案，sessionStorage和localStorage。<br>两个的使用区别：</p>
 <ol>
-<li>sessionStorage�����ݵĴ洢ֻ���ض��ĻỰ�У�����ֻ�ᱣ�����������ر�֮ǰ���ʺϱ�����ʱ���ݣ�</li>
-<li>localStorage: �洢�ڱ���Ӳ�����棬�־û����ڣ��ʺϱ��泤ʱ�����ݡ�</li>
+<li>sessionStorage：数据的存储只在特定的会话中，数据只会保留到浏览器关闭之前，适合保存临时数据；</li>
+<li>localStorage: 存储在本地硬盘上面，持久化存在，适合保存长时间数据。</li>
 </ol>
-<p>sessionStorage��localStorage�ṩ�ķ���������<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setItem<span class="comment">(key,value)</span>;	<span class="comment">//��������</span></span><br><span class="line">getItem<span class="comment">(key)</span>;	<span class="comment">//��ȡ����</span></span><br><span class="line">removeItem<span class="comment">(key)</span>;	<span class="comment">//������ֵ</span></span><br><span class="line">clear<span class="comment">()</span>;	<span class="comment">//��������</span></span><br></pre></td></tr></table></figure></p>
-<p>ʹ�÷�����<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span> </span><br><span class="line">    sessionStorage.setItem<span class="params">('key1', <span class="string">"test"</span>)</span>;</span><br><span class="line">	console.<span class="built_in">log</span><span class="params">(sessionStorage.getItem<span class="params">('int1')</span>)</span>;</span><br><span class="line">	</span><br><span class="line">	localStorage.setItem<span class="params">('key2', <span class="string">"test"</span>)</span>;</span><br><span class="line">	console.<span class="built_in">log</span><span class="params">(localStorage.getItem<span class="params">('key2')</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="ע�����">ע�����</h2><p>1����ͬ�������� H5 �ı��ش洢��С�����������ƣ��򹩲ο���������ֵ��ʵ�ʲ���Ϊ׼����<br>IE       9    &gt; 4999995 + 5 = 5000000<br>firefox 22.0  &gt; 5242875 + 5 = 5242880<br>chrome  28.0  &gt; 2621435 + 5 = 2621440<br>safari  5.1   &gt; 2621435 + 5 = 2621440<br>opera   12.15 &gt; 5M ���������ᵯ���������������ռ��ĶԻ�����<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	localStorage.setItem(<span class="variable">key</span>,value);</span><br><span class="line">&#125;<span class="keyword">catch</span>(ex)&#123;</span><br><span class="line">	<span class="keyword">if</span>(ex.name == <span class="string">'QuotaExceededError'</span>)&#123;</span><br><span class="line">		console.<span class="built_in">log</span>(<span class="string">'���򱾵ش洢�޶'</span>);</span><br><span class="line">		localStorage.<span class="built_in">clear</span>();</span><br><span class="line">		localStorage.setItem(<span class="variable">key</span>,value);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2��H5���ش洢ֻ�ܴ��ַ������κθ�ʽ�洢��ʱ�򶼻ᱻ�Զ�תΪ<strong>�ַ���</strong>�����Զ�ȡ��ʱ������Ҫ�Լ��������͵�ת����<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">localStorage.setItem(<span class="string">'int2'</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> localStorage.getItem(<span class="string">'int2'</span>));<span class="comment">//string</span></span><br></pre></td></tr></table></figure></p>
-<p>3��iOS��Safari���޺�ģʽ������ģʽ���£�setItem���������쳣������QUOTA_EXCEEDED_ERR: DOM Exception 22����ʱ��Ҫ��ֹ�׳��쳣����js�޷�����ִ�У�����ҳ���޷��������أ�<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.localStorage.setItem(<span class="string">'int2'</span>, <span class="number">1</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span>(ex) &#123;</span><br><span class="line">	<span class="built_in">console</span>.error(ex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>��л�����Ķ����в���֮����������Ϊ��ָ����</p>
-<h2 id="�ο�����">�ο�����</h2><p>[1]��<a href="http://www.cnblogs.com/xiaowei0705/archive/2011/04/19/2021372.html" target="_blank" rel="external">HTML5 LocalStorage ���ش洢</a><br>[2]��<a href="http://www.cnblogs.com/Henllyee/archive/2012/02/26/Html5_Third.html" target="_blank" rel="external">Html5 Step by Step(��) ���ش洢</a></p>
-<p>��Ȩ���󣺱���Ϊ����ԭ�����£�δ������������ת�ء����ĵ�ַ <a href="http://yangyuji.github.io/2015/07/09/html5-webstorage/">http://yangyuji.github.io/2015/07/09/html5-webstorage/</a></p>
+<p>sessionStorage、localStorage提供的方法包括：<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setItem<span class="comment">(key,value)</span>;	<span class="comment">//保存数据</span></span><br><span class="line">getItem<span class="comment">(key)</span>;	<span class="comment">//获取数据</span></span><br><span class="line">removeItem<span class="comment">(key)</span>;	<span class="comment">//提出健值</span></span><br><span class="line">clear<span class="comment">()</span>;	<span class="comment">//清除数据</span></span><br></pre></td></tr></table></figure></p>
+<p>使用方法：<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span> </span><br><span class="line">    sessionStorage.setItem<span class="params">('key1', <span class="string">"test"</span>)</span>;</span><br><span class="line">	console.<span class="built_in">log</span><span class="params">(sessionStorage.getItem<span class="params">('int1')</span>)</span>;</span><br><span class="line">	</span><br><span class="line">	localStorage.setItem<span class="params">('key2', <span class="string">"test"</span>)</span>;</span><br><span class="line">	console.<span class="built_in">log</span><span class="params">(localStorage.getItem<span class="params">('key2')</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="注意事项：">注意事项：</h2><p>1、不同浏览器对 H5 的本地存储大小基本均有限制（仅供参考，具体数值以实际测试为准）：<br>IE       9    &gt; 4999995 + 5 = 5000000<br>firefox 22.0  &gt; 5242875 + 5 = 5242880<br>chrome  28.0  &gt; 2621435 + 5 = 2621440<br>safari  5.1   &gt; 2621435 + 5 = 2621440<br>opera   12.15 &gt; 5M （超出则会弹出允许请求更多空间的对话框）<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	localStorage.setItem(<span class="variable">key</span>,value);</span><br><span class="line">&#125;<span class="keyword">catch</span>(ex)&#123;</span><br><span class="line">	<span class="keyword">if</span>(ex.name == <span class="string">'QuotaExceededError'</span>)&#123;</span><br><span class="line">		console.<span class="built_in">log</span>(<span class="string">'超出本地存储限额！'</span>);</span><br><span class="line">		localStorage.<span class="built_in">clear</span>();</span><br><span class="line">		localStorage.setItem(<span class="variable">key</span>,value);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、H5本地存储只能存字符串，任何格式存储的时候都会被自动转为<strong>字符串</strong>，所以读取的时候，需要自己进行类型的转换：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">localStorage.setItem(<span class="string">'int2'</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> localStorage.getItem(<span class="string">'int2'</span>));<span class="comment">//string</span></span><br></pre></td></tr></table></figure></p>
+<p>3、iOS的Safari在无痕模式（隐身模式）下，setItem操作产生异常，报错QUOTA_EXCEEDED_ERR: DOM Exception 22，这时需要防止抛出异常导致js无法正常执行，最终页面无法正常加载：<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.localStorage.setItem(<span class="string">'int2'</span>, <span class="number">1</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span>(ex) &#123;</span><br><span class="line">	<span class="built_in">console</span>.error(ex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>感谢您的阅读，有不足之处请在评论为我指出！</p>
+<h2 id="参考资料">参考资料</h2><p>[1]：<a href="http://www.cnblogs.com/xiaowei0705/archive/2011/04/19/2021372.html" target="_blank" rel="external">HTML5 LocalStorage 本地存储</a><br>[2]：<a href="http://www.cnblogs.com/Henllyee/archive/2012/02/26/Html5_Third.html" target="_blank" rel="external">Html5 Step by Step(二) 本地存储</a></p>
+<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/07/09/html5-webstorage/">http://yangyuji.github.io/2015/07/09/html5-webstorage/</a></p>
 
       
     </div>
@@ -151,7 +151,7 @@
 
 <section id="comments">
     <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="2015/07/09/html5-webstorage/" data-title="HTML5֮���ش洢" data-url="http://yangyuji.github.io/2015/07/09/html5-webstorage/"></div>
+	<div class="ds-thread" data-thread-key="2015/07/09/html5-webstorage/" data-title="HTML5之本地存储" data-url="http://yangyuji.github.io/2015/07/09/html5-webstorage/"></div>
 	<!-- 多说评论框 end -->
 		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 		<script type="text/javascript">
@@ -196,7 +196,7 @@
       </li>
     
       <li>
-        <a href="/2015/07/09/html5-webstorage/">HTML5֮���ش洢</a>
+        <a href="/2015/07/09/html5-webstorage/">HTML5之本地存储</a>
       </li>
     
       <li>
