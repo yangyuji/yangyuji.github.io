@@ -53,6 +53,81 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-06-21T07:31:44.000Z"><a href="/2015/06/21/javascript-redraw/">2015-06-21</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/06/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="什么是重排和重绘">什么是重排和重绘</h1><hr>
+<p>浏览器下载完页面中的所有组件——HTML标记、JavaScript、CSS、图片之后会解析生成两个内部数据结构——DOM树和渲染树。</p>
+<p>DOM树表示页面结构，渲染树表示DOM节点如何显示。DOM树中的每一个需要显示的节点在渲染树种至少存在一个对应的节点（隐藏的DOM元素disply值为none 在渲染树中没有对应的节点）。渲染树中的节点被称为“帧”或“盒”，符合CSS模型的定义，理解页面元素为一个具有填充，边距，边框和位置的盒子。一旦DOM和渲染树构建完成，浏览器就开始显示（绘制）页面元素。<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/06/21/javascript-redraw/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-06-19T12:02:53.000Z"><a href="/2015/06/19/javascript-function/">2015-06-19</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/06/19/javascript-function/">function表达式和function语句</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>首先我们看下什么是function表达式和function语句：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;&#125;       <span class="comment">//function语句</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">//function表达式</span></span><br></pre></td></tr></table></figure></p>
+<p>javascript语言中的function语句在解析时会发生被预先加载的情况。这意味着不管function被放置在哪里，它都会被移动到被定义时所在的作用域顶层，造成了javascript函数不必先声明后使用的特性，但这种特性也导致了javascript的混乱。下面看两段代码：<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/06/19/javascript-function/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-06-15T02:02:17.000Z"><a href="/2015/06/15/xmlhttprequest-2.0/">2015-06-15</a></time>
       
       
@@ -157,79 +232,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-06-05T16:24:52.000Z"><a href="/2015/06/06/javascript-this/">2015-06-06</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/06/06/javascript-this/">JavaScript之this关键字</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>本文简单谈一谈JavaScript里面的this关键字。这个关键字是理解JavaScript面向对象编程的重要基础。</p>
-<p>this表示当前对象，如果在全局作用范围内使用this，则指代当前页面对象window； 如果在函数中使用this，则this指代什么是根据运行时此函数在什么对象上被调用。 还可以使用<strong>apply</strong>和<strong>call</strong>两个全局方法来改变函数中this的具体指向。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/06/06/javascript-this/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-06-02T02:08:52.000Z"><a href="/2015/06/02/javascript-scope/">2015-06-02</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/06/02/javascript-scope/">由两段代码浅谈javascript作用域</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>废话少说，先上第一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tt = <span class="string">'aa'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(tt);</span><br><span class="line">	<span class="keyword">var</span> tt = <span class="string">'dd'</span>;</span><br><span class="line">	alert(tt);</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/06/02/javascript-scope/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -263,6 +265,14 @@
   <ul class="entry">
     
       <li>
+        <a href="/2015/07/09/javascript-chain/">javascript原型链的一点理解</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/09/html5-webstorage/">HTML5֮���ش洢</a>
+      </li>
+    
+      <li>
         <a href="/2015/07/04/javascript-console/">你真的会使用console调试js吗</a>
       </li>
     
@@ -274,14 +284,6 @@
         <a href="/2015/06/23/javascript-customer-event/">javascript自定义事件</a>
       </li>
     
-      <li>
-        <a href="/2015/06/21/javascript-redraw/">JavaScript高质量代码之重绘和重排</a>
-      </li>
-    
-      <li>
-        <a href="/2015/06/19/javascript-function/">function表达式和function语句</a>
-      </li>
-    
   </ul>
 </div>
 
@@ -291,7 +293,9 @@
   <h3 class="title">分类</h3>
   <ul class="entry">
   
-    <li><a href="/categories/Javascript/">Javascript</a><small>11</small></li>
+    <li><a href="/categories/HTML5/">HTML5</a><small>1</small></li>
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>12</small></li>
   
     <li><a href="/categories/ajax/">ajax</a><small>2</small></li>
   
@@ -303,7 +307,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 16.67px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/chrome-debug/" style="font-size: 10px;">chrome debug</a> <a href="/tags/console/" style="font-size: 10px;">console</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/javascript面向对象，this/" style="font-size: 10px;">javascript面向对象，this</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/自定义事件/" style="font-size: 10px;">自定义事件</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 16.67px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/WebStorage/" style="font-size: 10px;">WebStorage</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/chrome-debug/" style="font-size: 10px;">chrome debug</a> <a href="/tags/console/" style="font-size: 10px;">console</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/javascript面向对象，this/" style="font-size: 10px;">javascript面向对象，this</a> <a href="/tags/localStorage/" style="font-size: 10px;">localStorage</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/sessionStorage/" style="font-size: 10px;">sessionStorage</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/自定义事件/" style="font-size: 10px;">自定义事件</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
   </div>
 </div>
 
