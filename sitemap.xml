@@ -2,13 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yangyuji.github.io/2015/07/09/html5-webstorage/</loc>
-    <lastmod>2015-09-11T14:21:16.251Z</lastmod>
+    <loc>http://yangyuji.github.io/2015/06/15/xmlhttprequest-2.0/</loc>
+    <lastmod>2015-09-12T08:37:51.966Z</lastmod>
   </url>
   
   <url>
     <loc>http://yangyuji.github.io/2015/07/09/javascript-chain/</loc>
-    <lastmod>2015-09-11T14:13:56.347Z</lastmod>
+    <lastmod>2015-09-12T08:37:07.149Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yangyuji.github.io/2015/07/09/html5-webstorage/</loc>
+    <lastmod>2015-09-11T14:21:16.251Z</lastmod>
   </url>
   
   <url>
@@ -34,11 +39,6 @@
   <url>
     <loc>http://yangyuji.github.io/2015/06/13/javascript-super/</loc>
     <lastmod>2015-08-23T09:18:41.934Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://yangyuji.github.io/2015/06/15/xmlhttprequest-2.0/</loc>
-    <lastmod>2015-08-23T09:14:48.146Z</lastmod>
   </url>
   
   <url>
