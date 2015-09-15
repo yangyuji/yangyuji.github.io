@@ -53,6 +53,43 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-06-09T11:46:32.000Z"><a href="/2015/06/09/javascript-normal/">2015-06-09</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/06/09/javascript-normal/">JavaScript高质量代码之常用代码优化写法</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>本文保存一些常用JavaScript代码的高质量写法，以便查阅和进步。</p>
+<h3 id="[1]-_使用“[_]“方括号访问属性">[1]. 使用“[ ]“方括号访问属性</h3><p>如果使用”.”号，属性名是硬代码，不能在执行时改变。如果使用”[ ]“方括号，属性名是一个通过计算属性名而来的字符串。 如果你有 “value1″, “value2″, 和 “value3″这样的属性，你可以通过定义一个变量 i=1 来动态访问你需要的属性：</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/06/09/javascript-normal/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-06-05T16:24:52.000Z"><a href="/2015/06/06/javascript-this/">2015-06-06</a></time>
       
       
@@ -201,46 +238,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-05-24T02:24:58.000Z"><a href="/2015/05/24/javascript-event/">2015-05-24</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/05/24/javascript-event/">Javascript事件冒泡和事件捕获</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="Javascript事件">Javascript事件</h2><p>在浏览器上，某个行为的发生，都是以事件驱动的，即某个事件发生，然后做出相应的动作。 浏览器的事件表示的是某些事情发生的信号，详情参考w3school的<a href="http://www.w3school.com.cn/jsref/dom_obj_event.asp">Javascript Event</a>。</p>
-<h2 id="事件冒泡(event_bubbling)">事件冒泡(event bubbling)</h2><p>大家可以脑补一下冒泡的场景，即气泡从水底开始往上升，由深到浅，升到最上面，最后到达水面破裂。那么相对应的：这个气泡就相当于Javascript事件，而水则相当于我们的整个dom树；事件从dom树的底层通过一层一层往上传递，直至传递到dom的根节点。</p>
-<h3 id="案例分析">案例分析</h3><ul>
-<li>我们通过一个简单的例案例来阐述冒泡原理：<br>定义一个html，里面有三个简单的dom元素：parent，child，span，child包含span，parent包含child；当然它们都在body下： </li>
-</ul>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/05/24/javascript-event/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -274,6 +271,10 @@
   <ul class="entry">
     
       <li>
+        <a href="/2015/07/24/nginx-js-concat/">nginx���úϲ�js��css�ļ�����</a>
+      </li>
+    
+      <li>
         <a href="/2015/07/13/html5-webstorage/">HTML5之本地存储</a>
       </li>
     
@@ -287,10 +288,6 @@
     
       <li>
         <a href="/2015/07/02/javascript-class/">Javascript面向对象编程的三种方法</a>
-      </li>
-    
-      <li>
-        <a href="/2015/06/23/javascript-customer-event/">javascript自定义事件</a>
       </li>
     
   </ul>
@@ -308,6 +305,8 @@
   
     <li><a href="/categories/ajax/">ajax</a><small>2</small></li>
   
+    <li><a href="/categories/nginx/">nginx</a><small>1</small></li>
+  
   </ul>
 </div>
 
@@ -316,7 +315,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 16.67px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/WebStorage/" style="font-size: 10px;">WebStorage</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/chrome-debug/" style="font-size: 10px;">chrome debug</a> <a href="/tags/console/" style="font-size: 10px;">console</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/javascript面向对象，this/" style="font-size: 10px;">javascript面向对象，this</a> <a href="/tags/localStorage/" style="font-size: 10px;">localStorage</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/sessionStorage/" style="font-size: 10px;">sessionStorage</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/自定义事件/" style="font-size: 10px;">自定义事件</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 16.67px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/WebStorage/" style="font-size: 10px;">WebStorage</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/chrome-debug/" style="font-size: 10px;">chrome debug</a> <a href="/tags/console/" style="font-size: 10px;">console</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/http-concat/" style="font-size: 10px;">http_concat</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/javascript面向对象，this/" style="font-size: 10px;">javascript面向对象，this</a> <a href="/tags/localStorage/" style="font-size: 10px;">localStorage</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/sessionStorage/" style="font-size: 10px;">sessionStorage</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/j���Z�/" style="font-size: 10px;">ǰ���Ż�</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/自定义事件/" style="font-size: 10px;">自定义事件</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
   </div>
 </div>
 

@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>nginx���úϲ�js��css�ļ����� | yangyuji</title>
+  <meta name="author" content="yangyuji">
+  
+  <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="nginx���úϲ�js��css�ļ�����"/>
+  <meta property="og:site_name" content="yangyuji"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="yangyuji" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="/js/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">yangyuji</a></h1>
+  <h2><a href="/">一个屌丝，码农，程序猿</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-07-24T14:43:34.000Z"><a href="/2015/07/24/nginx-js-concat/">2015-07-24</a></time>
+      
+      
+  
+    <h1 class="title">nginx���úϲ�js��css�ļ�����</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="����">����</h2><p>���ڲ鿴jd��վ��ҳ����ʱ�����ֺü���������url������<br><a href="http://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,jdf/1.0.0/ui/ui/1.0.0/ui.js" target="_blank" rel="external">http://misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,jdf/1.0.0/ui/ui/1.0.0/ui.js</a><br><a href="http://misc.360buyimg.com/??product/home/1.0.0/js/init.js,jdf/1.0.0/unit/wl/1.0.0/wl.js" target="_blank" rel="external">http://misc.360buyimg.com/??product/home/1.0.0/js/init.js,jdf/1.0.0/unit/wl/1.0.0/wl.js</a></p>
+<p>���Ǻ�������һ�ѣ������˽�ʵ�ַ����������Լ�Ҳ����һ�£�<br><a id="more"></a></p>
+<p>ϵͳ������<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">CentOS</span> <span class="tag">release</span> 6<span class="class">.2</span> (<span class="tag">Final</span>)</span><br><span class="line"><span class="tag">Linux</span> <span class="tag">version</span> 2<span class="class">.6</span><span class="class">.32-220</span><span class="class">.el6</span><span class="class">.x86_64</span></span><br></pre></td></tr></table></figure></p>
+<p>nginx��http_concatģ�鰲װ��<br><figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">cd</span> /usr/local/src/</span><br><span class="line"> wget <span class="keyword">http</span>://nginx.org/download/nginx-<span class="number">1.4</span>.2.tar.gz</span><br><span class="line"> wget https://github.com/alibaba/nginx-<span class="keyword">http</span>-<span class="keyword">concat</span>/archive/master.zip -O nginx-<span class="keyword">http</span>-<span class="keyword">concat</span>-master.zip</span><br><span class="line"> unzip nginx-<span class="keyword">http</span>-<span class="keyword">concat</span>-master.zip</span><br><span class="line"> tar -xzvf nginx-<span class="number">1.4</span>.2.tar.gz</span><br><span class="line"> <span class="keyword">cd</span> nginx-<span class="number">1.4</span>.2/</span><br><span class="line"> ./configure --prefix=/usr/local/nginx-<span class="number">1.4</span>.2 --with-http_stub_status_module --add-module=../nginx-<span class="keyword">http</span>-<span class="keyword">concat</span>-master</span><br><span class="line"><span class="comment"># make</span></span><br><span class="line"><span class="comment"># make install</span></span><br></pre></td></tr></table></figure></p>
+<p>���������Ҳ���PCRE�⣬���ص�ַ��<a href="http://sourceforge.net/projects/pcre/files/pcre/" target="_blank" rel="external">http://sourceforge.net/projects/pcre/files/pcre/</a><br>�����ļ��ŵ�/usr/local/src/����<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf pcre-<span class="number">8.37</span><span class="class">.tar</span><span class="class">.gz</span></span><br><span class="line">cd pcre-<span class="number">8.37</span>/</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
+<p>����nginx�������ļ���<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>local<span class="regexp">/nginx-1.4.2/</span>sbin<span class="regexp">/nginx -t</span></span><br></pre></td></tr></table></figure></p>
+<p>ָ�������ļ�����nginx��<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>local<span class="regexp">/nginx-1.4.2/</span>sbin<span class="regexp">/nginx -c /u</span>sr<span class="regexp">/local/</span>nginx-<span class="number">1.4</span>.<span class="number">2</span><span class="regexp">/conf/</span>nginx.conf</span><br></pre></td></tr></table></figure></p>
+<p>�������ִ���: error while loading shared libraries: libpcre.so.1: cannot open shared object file: No such file or directory��<br>�����취��<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /lib64</span><br><span class="line">ln -s libpcre<span class="class">.so</span>.<span class="number">0.0</span>.<span class="number">1</span> libpcre<span class="class">.so</span>.<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>����ִ�������������ok��<br>�������޸������ļ���<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/<span class="keyword">local</span>/nginx-1.4.2/<span class="keyword">conf</span>/nginx.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure></p>
+<p>�޸��������£�<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> server &#123;</span><br><span class="line">    listen       8080<span class="comment">;</span></span><br><span class="line">    server_name  localhost<span class="comment">;</span></span><br><span class="line">    root         /var/www/html<span class="comment">;</span></span><br><span class="line">    #charset koi8-r<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    #access_log  logs/host.access.log  main<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /var/www/html<span class="comment">;</span></span><br><span class="line">        index  index.html index.htm<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location /static/&#123;</span><br><span class="line">        concat  on<span class="comment">;</span></span><br><span class="line">        concat_max_files  20<span class="comment">;</span></span><br><span class="line">        concat_unique  off<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Ȼ����������nginx������<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>local<span class="regexp">/nginx-1.4.2/</span>sbin/nginx -s stop</span><br><span class="line"><span class="regexp">/usr/</span>local<span class="regexp">/nginx-1.4.2/</span>sbin<span class="regexp">/nginx -c /</span>usr<span class="regexp">/local/</span>nginx-<span class="number">1.4</span>.2<span class="regexp">/conf/</span>nginx.conf</span><br></pre></td></tr></table></figure></p>
+<p>��ȻҲ�������𶯣�<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/nginx-<span class="number">1.4</span>.<span class="number">2</span>/sbin/nginx <span class="operator">-s</span> reload</span><br></pre></td></tr></table></figure></p>
+<p>���������ļ�������һ��index.htmlҳ�棬����������js�ļ���<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//Ĭ�ϼ���д��</span><br><span class="line"><span class="comment">&lt;!--script type="text/javascript" src="/static/jquery-1.8.3.js"&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type="text/javascript" src="/static/debug.js"&gt;&lt;/script--&gt;</span></span><br><span class="line">//һ�μ��ض����ļ���д��</span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"/static/??jquery-1.8.3.js,debug.js"</span> &gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>����������ҳ�棬�鿴�������أ��ļ����سɹ������Һϲ�����һ����</p>
+<p>��л�����Ķ����в���֮����������Ϊ��ָ����</p>
+<h2 id="�ο�����">�ο�����</h2><p>[1]��<a href="http://www.ttlsa.com/nginx/nginx-modules-concat/" target="_blank" rel="external">nginx js��css���������ϲ�Ϊһ������(concatģ��)</a><br>[2]��<a href="http://www.moonfly.net/896.html" target="_blank" rel="external">ʹ��Tengine concatģ���ϲ�����CSS,JS ����</a></p>
+<p>��Ȩ���󣺱���Ϊ����ԭ�����£�δ������������ת�ء����ĵ�ַ <a href="http://yangyuji.github.io/2015/07/24/nginx-js-concat/">http://yangyuji.github.io/2015/07/24/nginx-js-concat/</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/nginx/">nginx</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/http-concat/">http_concat</a>, <a href="/tags/nginx/">nginx</a>, <a href="/tags/j���Z�/">ǰ���Ż�</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<style>
+.prev_next {
+  margin-bottom: 1em;
+  clear: both;
+  background: transparent;
+  overflow: hidden;
+}
+.prev_next a {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5em 1em;
+  background: #fff;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
+  color: #1ba1e2;
+}
+.prev_next a.prev {
+  float: left;
+}
+.prev_next a.next {
+  float: right;
+}
+.prev_next a.disabled {
+  cursor: not-allowed;
+  color: #999;
+}
+.prev_next a.disabled:hover {
+  text-decoration: none;
+}
+</style>
+<div class="prev_next clearfix">
+  
+    <a href="javascript:;" class="prev alignleft disabled" title="没有上一篇了">已经是第一篇了</a>
+  
+  
+  <a href="/2015/07/13/html5-webstorage/" class="next alignright" title="HTML5之本地存储">下一篇<span class="xs-hidden">：HTML5之本地存储</span></a>
+  
+</div>
+
+
+<section id="comments">
+    <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015/07/24/nginx-js-concat/" data-title="nginx���úϲ�js��css�ļ�����" data-url="http://yangyuji.github.io/2015/07/24/nginx-js-concat/"></div>
+	<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"yangyuji"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  
+<div class="widget about_me">
+  <h3 class="title">About Me</h3>
+  <ul class="entry">
+    
+    <li><img width="200px" title="avatar" src="/img/header.jpg" /></li>
+    
+    
+    <li><a href="/about" target="_self">羊羽集</a></li>
+    
+    <li>联系QQ：394712273</li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/07/24/nginx-js-concat/">nginx���úϲ�js��css�ļ�����</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/13/html5-webstorage/">HTML5之本地存储</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/09/javascript-chain/">Javascript原型链的一点理解</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/04/javascript-console/">你真的会使用console调试js吗</a>
+      </li>
+    
+      <li>
+        <a href="/2015/07/02/javascript-class/">Javascript面向对象编程的三种方法</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/HTML5/">HTML5</a><small>1</small></li>
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>12</small></li>
+  
+    <li><a href="/categories/ajax/">ajax</a><small>2</small></li>
+  
+    <li><a href="/categories/nginx/">nginx</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 16.67px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/Javascript/" style="font-size: 16.67px;">Javascript</a> <a href="/tags/WebStorage/" style="font-size: 10px;">WebStorage</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/chrome-debug/" style="font-size: 10px;">chrome debug</a> <a href="/tags/console/" style="font-size: 10px;">console</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/http-concat/" style="font-size: 10px;">http_concat</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/javascript面向对象，this/" style="font-size: 10px;">javascript面向对象，this</a> <a href="/tags/localStorage/" style="font-size: 10px;">localStorage</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/sessionStorage/" style="font-size: 10px;">sessionStorage</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/j���Z�/" style="font-size: 10px;">ǰ���Ż�</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 13.33px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/自定义事件/" style="font-size: 10px;">自定义事件</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+  </div>
+</div>
+
+
+  <div class="widget duoshuo_recent_comments">
+  <h3 class="title">最新评论</h3>
+  <ul class="entry ds-recent-comments" data-num-items="5" data-show-avatars="0" data-show-title="1" data-show-time="1"></ul>
+</div>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"yangyuji"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 yangyuji
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
