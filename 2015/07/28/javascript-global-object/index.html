@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档：2015/5 | yangyuji</title>
+  <title>Javascript的全局对象 | yangyuji</title>
   <meta name="author" content="yangyuji">
   
   <meta name="description" content="oujizeng | 欧吉增 | yangyuji&#39;s blog | yangyuji">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Javascript的全局对象"/>
   <meta property="og:site_name" content="yangyuji"/>
 
   
@@ -46,49 +46,169 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title">2015/5</h2>
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-07-28T07:24:53.000Z"><a href="/2015/07/28/javascript-global-object/">2015-07-28</a></time>
+      
+      
+  
+    <h1 class="title">Javascript的全局对象</h1>
+  
 
+    </header>
+    <div class="entry">
+      
+        <h2 id="标准全局对象">标准全局对象</h2><p>注：这里的“全局对象”是指ES5下，并且去掉了非标准（not standard）的和过时（out-of-date）的。</p>
+<h3 id="常量">常量</h3><ul>
+<li>Infinity</li>
+<li>NaN</li>
+<li>undefined</li>
+<li>null<a id="more"></a>
+</li>
+</ul>
+<h3 id="方法">方法</h3><ul>
+<li>eval()</li>
+<li>isFinite()</li>
+<li>isNaN()</li>
+<li>parseFloat()</li>
+<li>parseInt()</li>
+<li>decodeURI()</li>
+<li>decodeURIComponent()</li>
+<li>encodeURI()</li>
+<li>encodeURIComponent()</li>
+</ul>
+<h3 id="对象">对象</h3><ul>
+<li>Object</li>
+<li>Function</li>
+<li>String</li>
+<li>Boolean</li>
+<li>Number</li>
+<li>Math</li>
+<li>Date</li>
+<li>RegExp</li>
+<li>Error 还有（EvalError，ReferenceError，SyntaxError，TypeError等）</li>
+</ul>
+<h3 id="索引集合">索引集合</h3><ul>
+<li><p>Array</p>
+</li>
+<li><p>Int8Array</p>
+</li>
+<li>Int16Array</li>
+<li><p>Int32Array</p>
+</li>
+<li><p>Uint8Array</p>
+</li>
+<li>Uint8ClampedArray</li>
+<li>Uint16Array</li>
+<li><p>Uint32Array</p>
+</li>
+<li><p>Float32Array</p>
+</li>
+<li>Float64Array</li>
+</ul>
+<h3 id="结构化数据">结构化数据</h3><ul>
+<li>ArrayBuffer</li>
+<li>DataView</li>
+<li>JSON</li>
+</ul>
+<h3 id="其他">其他</h3><ul>
+<li>arguments</li>
+<li>Promise  ES6标准对象，且已经在非ie的主流浏览器上实现</li>
+</ul>
+<p>DOM对象太多，不一一列出，参考页面：<a href="https://developer.mozilla.org/en-US/docs/Web/API" target="_blank" rel="external">https://developer.mozilla.org/en-US/docs/Web/API</a></p>
+<p>感谢您的阅读，有不足之处请在评论为我指出！</p>
+<h2 id="参考资料">参考资料</h2><p>[1]：<a href="http://www.cnblogs.com/TomXu/archive/2012/03/05/2358552.html" target="_blank" rel="external">JavaScript标准库</a></p>
+<p>版权声明：本文为博主原创文章，未经博主允许不得转载。本文地址 <a href="http://yangyuji.github.io/2015/07/28/javascript-global-object/">http://yangyuji.github.io/2015/07/28/javascript-global-object/</a></p>
 
-  <div class="archive">
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2015-05-29T08:38:53.000Z"><a href="/2015/05/29/javascript-delegation/">2015-05-29</a></time>
-            
-              <h1 class="title"><a href="/2015/05/29/javascript-delegation/">Javascript事件事件委托（事件代理）</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2015-05-27T02:24:58.000Z"><a href="/2015/05/27/javascript-event-use/">2015-05-27</a></time>
-            
-              <h1 class="title"><a href="/2015/05/27/javascript-event-use/">Javascript事件冒泡和捕获的应用</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2015-05-24T02:24:58.000Z"><a href="/2015/05/24/javascript-event/">2015-05-24</a></time>
-            
-              <h1 class="title"><a href="/2015/05/24/javascript-event/">Javascript事件冒泡和事件捕获</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
   </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Javascript/">Javascript</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<style>
+.prev_next {
+  margin-bottom: 1em;
+  clear: both;
+  background: transparent;
+  overflow: hidden;
+}
+.prev_next a {
+  display: inline-block;
+  text-align: center;
+  padding: 0.5em 1em;
+  background: #fff;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
+  color: #1ba1e2;
+}
+.prev_next a.prev {
+  float: left;
+}
+.prev_next a.next {
+  float: right;
+}
+.prev_next a.disabled {
+  cursor: not-allowed;
+  color: #999;
+}
+.prev_next a.disabled:hover {
+  text-decoration: none;
+}
+</style>
+<div class="prev_next clearfix">
+  
+  <a href="/2015/07/31/javascript-best-practices/" class="prev alignleft" title="Javascript最佳实践">上一篇<span class="xs-hidden">：Javascript最佳实践</span></a>
+  
+  
+  <a href="/2015/07/24/nginx-js-concat/" class="next alignright" title="nginx配置合并js和css文件请求">下一篇<span class="xs-hidden">：nginx配置合并js和css文件请求</span></a>
+  
+</div>
+
+
+<section id="comments">
+    <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015/07/28/javascript-global-object/" data-title="Javascript的全局对象" data-url="http://yangyuji.github.io/2015/07/28/javascript-global-object/"></div>
+	<!-- 多说评论框 end -->
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		var duoshuoQuery = {short_name:"yangyuji"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				 || document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- 多说公共JS代码 end -->
+</section>
+
 </div></div>
     <aside id="sidebar" class="alignright">
   
