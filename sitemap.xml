@@ -2,23 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yangyuji.github.io/2015/07/24/nginx-js-concat/</loc>
+    <lastmod>2015-10-15T14:11:21.054Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yangyuji.github.io/2015/08/23/css-good-use/</loc>
+    <lastmod>2015-10-15T14:07:38.355Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yangyuji.github.io/2015/06/19/javascript-function/</loc>
+    <lastmod>2015-10-10T15:52:04.715Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yangyuji.github.io/2015/06/23/javascript-customer-event/</loc>
+    <lastmod>2015-10-08T01:05:08.961Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yangyuji.github.io/2015/08/03/nginx-pc-mobile/</loc>
+    <lastmod>2015-09-22T13:12:59.425Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yangyuji.github.io/2015/06/24/javascript-strategy-pattern/</loc>
+    <lastmod>2015-09-22T13:12:00.232Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yangyuji.github.io/2015/07/09/javascript-chain/</loc>
+    <lastmod>2015-09-21T00:35:01.199Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yangyuji.github.io/2015/07/31/javascript-best-practices/</loc>
     <lastmod>2015-09-16T15:06:00.071Z</lastmod>
   </url>
   
   <url>
-    <loc>http://yangyuji.github.io/2015/07/09/javascript-chain/</loc>
-    <lastmod>2015-09-16T15:03:28.988Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://yangyuji.github.io/2015/07/28/javascript-global-object/</loc>
     <lastmod>2015-09-16T14:52:49.269Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://yangyuji.github.io/2015/07/24/nginx-js-concat/</loc>
-    <lastmod>2015-09-15T15:15:50.939Z</lastmod>
   </url>
   
   <url>
@@ -32,18 +57,8 @@
   </url>
   
   <url>
-    <loc>http://yangyuji.github.io/2015/06/19/javascript-function/</loc>
-    <lastmod>2015-08-31T11:56:15.150Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://yangyuji.github.io/2015/07/04/javascript-console/</loc>
     <lastmod>2015-08-31T11:42:46.209Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://yangyuji.github.io/2015/06/23/javascript-customer-event/</loc>
-    <lastmod>2015-08-27T11:51:55.277Z</lastmod>
   </url>
   
   <url>

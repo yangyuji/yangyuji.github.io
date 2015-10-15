@@ -66,8 +66,9 @@
 <a id="more"></a>
 <p>那么，根据上面typeof结果：</p>
 <ul>
-<li>对象类型：结果为 number，string，boolean，object 的；</li>
-<li>引用类型：结果为 function 的。<br>之所以这样区分，是因为<strong>原始类型是不能够通过new 得到一个实例对象，而引用类型的使用是可以先通过new 一个实例对象的，当然，引用类型也可以直接使用</strong>。<br>那么本文讲的是原型链和面向对象的继承，自然只需要关注引用类型。</li>
+<li>基础类型：结果为 number，string，boolean的；</li>
+<li>对象类型：结果为 object 的；</li>
+<li>引用类型：结果为 function 的。<br>之所以这样区分，是因为<strong>基础类型是没有构造函数的，对象类型的构造函数指向它的原型，但是不需要通过 new 得到一个实例对象，而引用类型的使用是可以先通过 new 一个实例对象的，当然，引用类型也可以直接使用</strong>。<br>那么本文讲的是原型链和面向对象的继承，自然只需要关注引用类型。</li>
 </ul>
 <h2 id="原型继承">原型继承</h2><p>下面通过一段代码调试，查看javascript是怎么实现原型链的继承的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">	<span class="keyword">var</span> Parent = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = <span class="string">"莱斯利"</span></span><br><span class="line">		<span class="keyword">this</span>.hellow = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"hellow"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;; </span><br><span class="line">	<span class="built_in">console</span>.dir(Parent);</span><br><span class="line">	<span class="keyword">var</span> child = <span class="keyword">new</span> Parent();</span><br><span class="line">	<span class="built_in">console</span>.dir(child);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>再用typeof查看一下类型：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Parent);<span class="comment">//function</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> child); <span class="comment">//object</span></span><br></pre></td></tr></table></figure></p>
@@ -189,6 +190,14 @@
   <ul class="entry">
     
       <li>
+        <a href="/2015/08/23/css-good-use/">CSS使用最佳实践</a>
+      </li>
+    
+      <li>
+        <a href="/2015/08/03/nginx-pc-mobile/">Nginx cookie����ǰ��js�ж��û����ʶ�</a>
+      </li>
+    
+      <li>
         <a href="/2015/07/31/javascript-best-practices/">Javascript最佳实践</a>
       </li>
     
@@ -198,14 +207,6 @@
     
       <li>
         <a href="/2015/07/24/nginx-js-concat/">nginx配置合并js和css文件请求</a>
-      </li>
-    
-      <li>
-        <a href="/2015/07/13/html5-webstorage/">HTML5之本地存储</a>
-      </li>
-    
-      <li>
-        <a href="/2015/07/09/javascript-chain/">Javascript原型链的一点理解</a>
       </li>
     
   </ul>
@@ -219,9 +220,15 @@
   
     <li><a href="/categories/HTML5/">HTML5</a><small>1</small></li>
   
-    <li><a href="/categories/Javascript/">Javascript</a><small>14</small></li>
+    <li><a href="/categories/JavaScript/">JavaScript</a><small>1</small></li>
   
-    <li><a href="/categories/ajax/">ajax</a><small>2</small></li>
+    <li><a href="/categories/Javascript/">Javascript</a><small>15</small></li>
+  
+    <li><a href="/categories/Nginx/">Nginx</a><small>1</small></li>
+  
+    <li><a href="/categories/ajax/">ajax</a><small>1</small></li>
+  
+    <li><a href="/categories/css/">css</a><small>1</small></li>
   
     <li><a href="/categories/nginx/">nginx</a><small>1</small></li>
   
@@ -233,7 +240,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 15px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/Javascript/" style="font-size: 17.5px;">Javascript</a> <a href="/tags/WebStorage/" style="font-size: 10px;">WebStorage</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/chrome-debug/" style="font-size: 10px;">chrome debug</a> <a href="/tags/console/" style="font-size: 10px;">console</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/http-concat/" style="font-size: 10px;">http_concat</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/javascript面向对象，this/" style="font-size: 10px;">javascript面向对象，this</a> <a href="/tags/localStorage/" style="font-size: 10px;">localStorage</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/sessionStorage/" style="font-size: 10px;">sessionStorage</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 12.5px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/前端优化/" style="font-size: 10px;">前端优化</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/自定义事件/" style="font-size: 10px;">自定义事件</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a>
+    <a href="/tags/Blob/" style="font-size: 10px;">Blob</a> <a href="/tags/Event/" style="font-size: 15px;">Event</a> <a href="/tags/FormData/" style="font-size: 10px;">FormData</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/Javascript/" style="font-size: 17.5px;">Javascript</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/WebStorage/" style="font-size: 10px;">WebStorage</a> <a href="/tags/XMLHttpRequest/" style="font-size: 10px;">XMLHttpRequest</a> <a href="/tags/addEventListener/" style="font-size: 10px;">addEventListener</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/chrome-debug/" style="font-size: 10px;">chrome debug</a> <a href="/tags/console/" style="font-size: 10px;">console</a> <a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/dom/" style="font-size: 10px;">dom</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/http-concat/" style="font-size: 10px;">http_concat</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/javascript作用域/" style="font-size: 10px;">javascript作用域</a> <a href="/tags/javascript面向对象，this/" style="font-size: 10px;">javascript面向对象，this</a> <a href="/tags/localStorage/" style="font-size: 10px;">localStorage</a> <a href="/tags/new/" style="font-size: 10px;">new</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/preventDefault/" style="font-size: 10px;">preventDefault</a> <a href="/tags/return/" style="font-size: 10px;">return</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/sessionStorage/" style="font-size: 10px;">sessionStorage</a> <a href="/tags/stoppopagation/" style="font-size: 10px;">stoppopagation</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/事件代理/" style="font-size: 10px;">事件代理</a> <a href="/tags/事件冒泡/" style="font-size: 12.5px;">事件冒泡</a> <a href="/tags/事件委托/" style="font-size: 10px;">事件委托</a> <a href="/tags/事件捕获/" style="font-size: 10px;">事件捕获</a> <a href="/tags/代码备忘/" style="font-size: 10px;">代码备忘</a> <a href="/tags/前端优化/" style="font-size: 10px;">前端优化</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/类型转换/" style="font-size: 10px;">类型转换</a> <a href="/tags/自定义事件/" style="font-size: 10px;">自定义事件</a> <a href="/tags/重排/" style="font-size: 10px;">重排</a> <a href="/tags/重绘/" style="font-size: 10px;">重绘</a> <a href="/tags/高质量代码/" style="font-size: 10px;">高质量代码</a> <a href="/tags/����gʽ/" style="font-size: 10px;">����ģʽ</a>
   </div>
 </div>
 
