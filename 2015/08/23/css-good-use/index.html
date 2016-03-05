@@ -68,29 +68,32 @@
 <h3 id="内联元素">内联元素</h3><ul>
 <li><p>内联元素只能容纳文本或其他内联元素，它允许与其他内联元素位于同一行内，比如span，但，width与height对它不起作用。</p>
 <a id="more"></a>
-<pre><code>独占一行   能设宽高    竖直方向的<span class="attribute">margin</span>，<span class="attribute">padding</span>     水平方向的<span class="attribute">margin</span>，<span class="attribute">padding</span>
-</code></pre><p>  block         是         是               有效                          有效<br>  inline        否         否               无效                          <strong>有效</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">block    独占一行(是)    能设宽高(是)    竖直方向的<span class="attribute">margin</span>，<span class="function"><span class="title">padding</span><span class="params">(有效)</span></span>       水平方向的<span class="attribute">margin</span>，<span class="function"><span class="title">padding</span><span class="params">(有效)</span></span></span><br><span class="line">inline   独占一行(否)    能设宽高(否)    竖直方向的<span class="attribute">margin</span>，<span class="function"><span class="title">padding</span><span class="params">(无效)</span></span>       水平方向的<span class="attribute">margin</span>，<span class="function"><span class="title">padding</span><span class="params">(**有效**)</span></span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>当然，块状元素与内联元素是可以相互转换的，给块状元素设置 display:inline; 或 给内联元素设置 display:block; 即可转换。</p>
 <h3 id="常见的块状元素">常见的块状元素</h3><ul>
-<li>div  -  块</li>
-<li>p  -  段落</li>
-<li>h1 ~ h6  -  大标题</li>
-<li>table , form  -  表格，表单</li>
-<li>ul , ol  - 非排序列表，排序表单</li>
-<li>hr  -  水平分割线</li>
+<li>div</li>
+<li>p</li>
+<li>h1 ~ h6</li>
+<li>table , form</li>
+<li>ul , ol</li>
+<li>hr</li>
 </ul>
 <h3 id="常见的内联元素">常见的内联元素</h3><ul>
-<li>a   -  锚点</li>
-<li>span  -  内联块</li>
-<li>br  -  换行</li>
-<li>input  -  输入框</li>
-<li>img  -  图片</li>
-<li>select  -  项目选址</li>
-<li>textarea  -  多行文本输入框</li>
+<li>a</li>
+<li>img</li>
+<li>span</li>
+<li>br</li>
+<li>input</li>
+<li>select</li>
+<li>textarea</li>
 </ul>
-<h3 id="position的用法">position的用法</h3><p><img src="http://yangyuji.github.io/img/position.jpg" alt="position属性"><br>其中absolute和relative是最常用的，fixed用得也比较多，但是IE6并不支持fixed属性。</p>
+<h3 id="position的用法">position的用法</h3><p><img src="http://yangyuji.github.io/img/position.jpg" alt="position属性"><br>其中absolute和relative是最常用的，fixed用得也比较多，但是IE6并不支持fixed属性。<br>兼容ie6的fixed常用_position: absolute来做。</p>
+<h3 id="清除浮动的两种方式">清除浮动的两种方式</h3><ul>
+<li>overflow: hidden 和 .clearfix，如果元素内部有需要弹出的内容那要慎用overflow:hidden了；</li>
+<li>*zoom: 1 是ie的清除浮动常用做法，触发ie的hasLayout属性，清除浮动、清除margin的重叠。</li>
+</ul>
 <h3 id="正确使用display属性">正确使用display属性</h3><p>display属性会影响页面的渲染，因此请合理使用：</p>
 <ul>
 <li>display: inline后不应该再使用width、height、margin、padding以及float；</li>
@@ -98,6 +101,11 @@
 <li>display: block后不应该再使用vertical-align；</li>
 <li>display: table-*后不应该再使用margin或者float；</li>
 <li>不滥用float。</li>
+</ul>
+<h3 id="常见的ie兼容写法">常见的ie兼容写法</h3><ul>
+<li>星号” * “ ：ie6 ie7支持， firefox不支持；</li>
+<li>下划线”_”：ie6支持， ie7 firefox不支持；</li>
+<li>*zoom: 1 是ie的清除浮动常用做法。</li>
 </ul>
 <p>感谢您的阅读，有不足之处请在评论为我指出！</p>
 <h2 id="参考资料">参考资料</h2><p>[1]：<a href="http://my.oschina.net/cobish/blog/299489" target="_blank" rel="external">html之内联元素与块状元素</a></p>
@@ -288,7 +296,7 @@ var duoshuoQuery = {short_name:"yangyuji"};
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2015 yangyuji
+  &copy; 2016 yangyuji
   
 </div>
 <div class="clearfix"></div></footer>
