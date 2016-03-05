@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yangyuji.github.io/about/index.html</loc>
+    <lastmod>2016-03-05T02:30:04.241Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yangyuji.github.io/2015/08/23/css-good-use/</loc>
     <lastmod>2016-03-05T02:20:24.916Z</lastmod>
   </url>
@@ -14,11 +19,6 @@
   <url>
     <loc>http://yangyuji.github.io/2015/06/24/javascript-strategy-pattern/</loc>
     <lastmod>2015-10-27T13:15:28.137Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://yangyuji.github.io/about/index.html</loc>
-    <lastmod>2015-10-27T13:13:57.047Z</lastmod>
   </url>
   
   <url>
